@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "@/*": [ "src/*" ],
+      "@components/*": [ "src/components/*" ],
+      "@mocks/*": [ "test/mocks/*" ],
+      "@mock-data/*": [ "test/mocks/data/*" ]
+    },
+    "resolveJsonModule": true,
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es5",
+    "types": ["@types/jest", "node", "@types/testing-library__jest-dom"]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/*.d.ts"],
+  "exclude": ["node_modules"],
+  "parserOptions":  {
+    "ecmaVersion":  "2020",
+    "sourceType":  "module"
+  }
+}
