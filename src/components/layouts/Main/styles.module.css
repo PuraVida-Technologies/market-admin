@@ -1,28 +1,9 @@
 .siteLayout .siteLayoutBackground {
     background: #fff;
 }
-.siteLayout {
-    margin-left: 200px;
-}
 .content {
-    margin: 100px 40px;
     overflow: initial;
     min-height: 100vh;
-}
-.menu {
-    margin-left: auto;
-    justify-content: flex-end;
-    z-index: 999999;
-}
-.dropdown {
-    z-index: 999999;
-}
-.header {
-    position: fixed;
-    z-index: 9999;
-    padding-left: 0;
-    margin-left: 0;
-    width: calc(100% - 200px);
-    padding-right: 0;
-    margin-right: 0;
+    background-color: #fff;
+    padding: 100px 30px 0 30px;
 }
