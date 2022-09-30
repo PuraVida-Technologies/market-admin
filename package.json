@@ -14,7 +14,7 @@
     "fix": "eslint --fix ./src",
     "lint": "next lint",
     "prepare": "husky install",
-    "start": "next start -p 3000",
+    "start": "next start",
     "tdd": "yarn run test:watch",
     "test:unit": "jest --coverage",
     "test:watch": "jest --watch --coverage=false",
