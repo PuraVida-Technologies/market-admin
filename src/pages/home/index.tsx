@@ -1,11 +1,13 @@
 import Card from "@/components/Card";
 import MainLayout from "@/components/layouts/Main";
+import FilterBar from "@/components/FilterBar";
 import { Col, Row } from "antd";
 import { GetServerSideProps, NextPage } from "next";
 
 const HomePage: NextPage = () => {
   return (
     <MainLayout>
+      <FilterBar />
       <Row
         gutter={{
           xs: 8,
