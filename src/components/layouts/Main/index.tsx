@@ -21,6 +21,7 @@ export default function MainLayout(props: MainLayoutProps): JSX.Element {
       </Head>
       <Layout className={styles.siteLayout}>
         <TopMenu />
+        {/* <Navbar /> */}
         <Content className={styles.content}>{props.children}</Content>
       </Layout>
     </Layout>

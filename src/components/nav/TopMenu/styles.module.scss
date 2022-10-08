@@ -1,6 +1,6 @@
 .header {
   position: fixed;
-  padding: 16px 22px 16px 40px;
+  padding: 16px;
   width: 100%;
   z-index: 1;
   height: 80px;
@@ -11,6 +11,9 @@
   border-bottom: 2px #3653fe solid;
 }
 
+.logoText{
+  display: none;
+}
 .logoConatainer {
   background-color: #fff;
   display: flex;
@@ -24,58 +27,97 @@
   }
 }
 
+.logoImg{
+  position: relative;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+}
+
+
 .profileSection {
-  display: flex;
-  align-items: center;
-  .avatarContainer {
-    border-radius: 50%;
-    display: flex;
-    margin-inline-end: 8px;
+  display: none;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .logoText{
+    display: block;
   }
-  .text {
-    display: flex;
-    flex-direction: column;
-    p {
-      margin: 0;
-      &:first-of-type {
-        font-family: "Montserrat", sans-serif;
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 21.94px;
-        color: #11243d;
-      }
-      &:last-of-type {
-        font-family: "Roboto", sans-serif;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 16.41px;
-        color: #707a89;
-      }
-    }
+
+  .menulogo{
+  display: none;
   }
-  .notificationContainer {
-    border-radius: 10px;
-    $dimention: 48px;
-    width: $dimention;
-    height: $dimention;
-    margin-inline-start: 17px;
-    border: 1px solid #efeeee;
-    box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.06);
-    position: relative;
+
+  .header {
+    position: fixed;
+    padding: 16px 22px 16px 40px;
+    width: 100%;
+    z-index: 1;
+    height: 80px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    .notificationDot {
-      $dimention: 10px;
+    justify-content: space-between;
+    background-color: #fff;
+    border-bottom: 2px #3653fe solid;
+  }
+
+  .profileSection {
+    display: flex;
+    align-items: center;
+    .avatarContainer {
+      border-radius: 50%;
+      display: flex;
+      margin-inline-end: 8px;
+    }
+    .text {
+      display: flex;
+      flex-direction: column;
+      p {
+        margin: 0;
+        &:first-of-type {
+          font-family: "Montserrat", sans-serif;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 21.94px;
+          color: #11243d;
+        }
+        &:last-of-type {
+          font-family: "Roboto", sans-serif;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 16.41px;
+          color: #707a89;
+        }
+      }
+    }
+    .notificationContainer {
+      border-radius: 10px;
+      $dimention: 48px;
       width: $dimention;
       height: $dimention;
-      background-color: #b3beff;
-      border-radius: 50%;
-      border: 2px solid #3653fe;
-      position: absolute;
-      top: 7px;
-      right: 14px;
+      margin-inline-start: 17px;
+      border: 1px solid #efeeee;
+      box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.06);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      .notificationDot {
+        $dimention: 10px;
+        width: $dimention;
+        height: $dimention;
+        background-color: #b3beff;
+        border-radius: 50%;
+        border: 2px solid #3653fe;
+        position: absolute;
+        top: 7px;
+        right: 14px;
+      }
     }
   }
+  
 }
+
+

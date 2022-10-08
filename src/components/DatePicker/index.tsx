@@ -10,7 +10,7 @@ export default function CustomDatePicker(): JSX.Element {
   return (
     <Space direction="vertical">
       <DatePicker
-        suffixIcon={!date && <Image src="/assets/arrow-down.svg" alt="arrow" width={16} height={9} />}
+        suffixIcon={!date && <Image src="/icons/arrow-down.svg" alt="arrow" width={16} height={9} />}
         className={styles.datePicker}
         inputReadOnly
         placeholder="Recent Updated list"

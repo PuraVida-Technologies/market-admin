@@ -9,8 +9,8 @@ export default function FilterBar(): JSX.Element {
     <div className={styles.filterBAr}>
       <CustomDatePicker />
       <div className={styles.bubblesContainer}>
-        <Bubble text="listing" src="/assets/listing.svg" iconWidth={16} iconHeight={14} />
-        <Bubble text="sorting" src="/assets/sorting.svg" iconWidth={24} iconHeight={15} />
+        <Bubble text="listing" src="/icons/listing.svg" iconWidth={16} iconHeight={14} />
+        <Bubble text="sorting" src="/icons/sorting.svg" iconWidth={24} iconHeight={15} />
       </div>
     </div>
   );

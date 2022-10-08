@@ -5,19 +5,46 @@
     cursor: pointer;
     &::placeholder {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       color: #000;
       opacity: 1;
     }
     &:-ms-input-placeholder {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       color: #000;
     }
     &::-ms-input-placeholder {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       color: #000;
+    }
+  }
+}
+
+
+@media only screen and (min-width: 768px) {
+  .datePicker {
+    width: 230px;
+    cursor: pointer;
+    input {
+      cursor: pointer;
+      &::placeholder {
+        font-weight: 400;
+        font-size: 20px;
+        color: #000;
+        opacity: 1;
+      }
+      &:-ms-input-placeholder {
+        font-weight: 400;
+        font-size: 20px;
+        color: #000;
+      }
+      &::-ms-input-placeholder {
+        font-weight: 400;
+        font-size: 20px;
+        color: #000;
+      }
     }
   }
 }
