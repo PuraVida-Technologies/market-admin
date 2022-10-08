@@ -8,7 +8,7 @@
     "clean": "yall clean:*",
     "clean:coverage": "del ./coverage",
     "clean:dist": "del ./dist",
-    "build": "yall clean:dist build:only",
+    "build": "next build",
     "build:only": "next build",
     "dev": "next dev",
     "fix": "eslint --fix ./src",
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@types/react-modal": "^3.13.1",
     "antd": "^4.21.4",
     "axios": "^0.27.2",
     "date-fns": "^2.29.2",
@@ -34,6 +35,8 @@
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-modal": "^3.15.1",
+    "react-responsive": "^9.0.0",
     "react-router-dom": "^6.3.0",
     "reflect-metadata": "^0.1.13",
     "winston": "^3.8.1"
