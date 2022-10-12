@@ -1,9 +1,10 @@
 import "antd/dist/antd.css";
 import { Layout } from "antd";
 import Head from "next/head";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import styles from "./styles.module.css";
 import TopMenu from "@/components/nav/TopMenu";
+import SideBar from "@/components/nav/SideBar";
 
 const { Content } = Layout;
 
@@ -12,6 +13,11 @@ type MainLayoutProps = {
 };
 
 export default function MainLayout(props: MainLayoutProps): JSX.Element {
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const closeSideBar = () => {
+    setIsSideBarOpen(false);
+  };
+
   return (
     <Layout hasSider>
       <Head>
@@ -20,8 +26,10 @@ export default function MainLayout(props: MainLayoutProps): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout className={styles.siteLayout}>
-        <TopMenu />
+        <TopMenu onclick={() => setIsSideBarOpen(true)} />
+        {/* <Navbar /> */}
         <Content className={styles.content}>{props.children}</Content>
+        <SideBar onClick={closeSideBar} open={isSideBarOpen} />
       </Layout>
     </Layout>
   );

@@ -1,13 +1,24 @@
 .filterBAr {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 32px;
-  padding: 0 22px;
+  gap: 1rem;
 }
 
 .bubblesContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .filterBAr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding: 0 22px;
+  }
 }
