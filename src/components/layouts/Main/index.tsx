@@ -5,6 +5,7 @@ import React, { ReactNode, useState } from "react";
 import styles from "./styles.module.css";
 import TopMenu from "@/components/nav/TopMenu";
 import SideBar from "@/components/nav/SideBar";
+import withAuth from "@/HOC/withAuth.js";
 
 const { Content } = Layout;
 
@@ -12,7 +13,7 @@ type MainLayoutProps = {
   children: ReactNode;
 };
 
-export default function MainLayout(props: MainLayoutProps): JSX.Element {
+const MainLayout = (props: MainLayoutProps): JSX.Element => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const closeSideBar = () => {
     setIsSideBarOpen(false);
@@ -33,4 +34,6 @@ export default function MainLayout(props: MainLayoutProps): JSX.Element {
       </Layout>
     </Layout>
   );
-}
+};
+
+export default withAuth(MainLayout);
