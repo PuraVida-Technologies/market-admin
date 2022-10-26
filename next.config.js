@@ -6,10 +6,19 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/home",
+        destination: "/login",
         permanent: true,
       },
     ];
+  },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
+  publicRuntimeConfig: {
+    BASE_URL: process.env.BASE_URL,
+  },
+  serverRuntimeConfig: {
+    BASE_URL: process.env.BASE_URL,
   },
 };
 
