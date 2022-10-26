@@ -28,6 +28,81 @@ a {
   box-sizing: border-box;
 }
 
+button,
+a {
+  cursor: pointer;
+}
+
+.logo-img {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.left-inner {
+  width: 100%;
+}
+
+.login-container {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+}
+
+.form-container {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.custom-form {
+  display: grid;
+  font-weight: 700;
+  color: #8b8e93;
+}
+
+.custom-blue-btn {
+  background: #3653fe;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  color: #ffffff;
+  margin-top: 2rem;
+}
+
+.custom-input {
+  border: 1px solid #8b8e93;
+  border-radius: 0.2rem;
+  padding: 0.3rem;
+}
+
+.left-login-container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-header {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 2rem;
+  margin-top: 8rem;
+}
+
+.login-caption {
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 2rem;
+  margin-top: -1.5rem;
+  color: #8b8e93;
+}
+
+.right-login-container {
+  display: none;
+}
+
 .padding-1 {
   padding: 1rem;
 }
@@ -131,20 +206,17 @@ a {
   display: none; /* for Chrome, Safari, and Opera */
 }
 .ant-pagination-simple-pager {
- background-color: green;
+  background-color: green;
 }
 
-
-.ant-pagination li{
+.ant-pagination li {
   /* background: #ff0; */
-  border-radius: 50%;    
-
+  border-radius: 50%;
 }
 
-.ant-pagination li::current{
+.ant-pagination li::current {
   background: red;
-  border-radius: 50%;    
-
+  border-radius: 50%;
 }
 
 .ant-menu-horizontal > .ant-menu-item::after,
@@ -169,5 +241,35 @@ a {
 
   .top-1 {
     margin-top: 7rem;
+  }
+
+  .left-login-container {
+    margin-top: -10rem;
+    padding-left: 4rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+  }
+
+  .right-login-container {
+    width: 100%;
+    background: #f4f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    height: 100vh;
+  }
+
+  .form-container {
+    display: grid;
+    gap: 1rem;
+    width: 80%;
   }
 }
