@@ -15,7 +15,7 @@ const SideBar: FC<SideBarProps> = ({ open, onClick }) => {
     <>
       <Drawer placement={"left"} closable={false} onClose={onClick} open={open} key={"left"}>
         <div className="" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Link href="/home">
+          <Link href="/dashboard">
             <div className={styles.logoImg}>
               <Image src="/icons/pvb-logo.svg" alt="PVB Logo" width={"100%"} height={"100%"} />
             </div>

@@ -1,14 +1,22 @@
 import React, { FC } from "react";
 import { Menu } from "antd";
 import styles from "./styles.module.scss";
-import { LogoutOutlined } from "@ant-design/icons";
+import { LogoutOutlined, ProfileOutlined } from "@ant-design/icons";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { greeting } from "@/functions";
 
 interface DropdownProps {
   mode: "horizontal" | "vertical" | "inline";
 }
 
 const Dropdown: FC<DropdownProps> = ({ mode }) => {
+  const router = useRouter();
+
+  const logout = () => {
+    sessionStorage.removeItem("auth");
+    router.push("/login");
+  };
   return (
     <Menu mode={mode} style={{ borderBottom: "none" }}>
       <Menu.SubMenu
@@ -16,16 +24,19 @@ const Dropdown: FC<DropdownProps> = ({ mode }) => {
         title={
           <div className={styles.profileSection}>
             <div className={styles.avatarContainer}>
-              <Image src="/icons/admin.svg" alt="admin" width={54} height={54} />
+              <Image src="/icons/social_profile.svg" alt="admin" width={54} height={54} />
             </div>
             <div className={styles.text}>
               <p>Admin</p>
-              <p>Good Morning!</p>
+              {greeting()}
             </div>
           </div>
         }
       >
-        <Menu.Item key="log-out">
+        <Menu.Item key="" onClick={() => router.push("/profile")}>
+          <ProfileOutlined /> Profile
+        </Menu.Item>
+        <Menu.Item key="log-out" onClick={logout}>
           <LogoutOutlined /> Logout
         </Menu.Item>
       </Menu.SubMenu>

@@ -16,7 +16,7 @@ const TopMenu: FC<TopMenuProps> = ({ onclick }) => {
   return (
     <Header className={styles.header}>
       <div className={styles.logoConatainer}>
-        <Link href="/home">
+        <Link href="/dashboard">
           <div className={styles.logoImg}>
             <Image src="/icons/pvb-logo.svg" alt="PVB Logo" width={"100%"} height={"100%"} />
           </div>

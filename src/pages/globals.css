@@ -28,6 +28,11 @@ a {
   box-sizing: border-box;
 }
 
+button,
+a {
+  cursor: pointer;
+}
+
 .logo-img {
   position: relative;
   width: 100px;

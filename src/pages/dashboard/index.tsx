@@ -7,28 +7,9 @@ import { GetServerSideProps, NextPage } from "next";
 import React, { useState } from "react";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
+import { customStyles } from "@/util/modalStyle";
 
-const customStyles = {
-  overlay: {
-    background: "rgba(0, 0, 0, 0.85)",
-  },
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    maxWidth: "60rem",
-    width: "90%",
-    height: "70%",
-    borderRadius: "20px",
-    borderColor: "#ffffff",
-    padding: "16px",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-
-const HomePage: NextPage = () => {
+const Dashboard: NextPage = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -167,4 +148,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default HomePage;
+export default Dashboard;
