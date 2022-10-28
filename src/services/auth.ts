@@ -1,24 +1,36 @@
 import axios from "axios";
 
-export const loginAdminService: any = async (
+export type AuthResponse = {
+  data?: {
+    user: {
+      name: string;
+      email: string;
+    };
+    token: string;
+    tokenLifeTime: number;
+  };
+  errors?: string;
+};
+
+export async function loginAdminService(
   email: string,
   password: string
-) => {
+): Promise<AuthResponse> {
   const href = process.env.BASE_URL || "";
 
   const response = await axios.post(
     href,
     {
       query: `mutation($email: String!, $password: String!){
-    auth(authInput: { email: $email, password: $password }) {
-        user {
-            name,
-            email
-        }   
-        token
-        tokenLifeTime
-    }
-}`,
+            auth(authInput: { email: $email, password: $password }) {
+                user {
+                    name,
+                    email
+                }   
+                token
+                tokenLifeTime
+            }
+        }`,
       variables: {
         email,
         password,
@@ -30,5 +42,6 @@ export const loginAdminService: any = async (
       },
     }
   );
-  return response.data;
-};
+
+  return response.data as AuthResponse;
+}

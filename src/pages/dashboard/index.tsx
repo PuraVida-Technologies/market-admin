@@ -3,14 +3,32 @@ import MainLayout from "@/components/layouts/Main";
 import FilterBar from "@/components/FilterBar";
 import Modal from "react-modal";
 import { Button, Col, Row, Space, Pagination } from "antd";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from "next";
 import React, { useState } from "react";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { customStyles } from "@/util/modalStyle";
+import { NextRouter, useRouter } from "next/router";
 
-const Dashboard: NextPage = () => {
+const Dashboard: NextPage = ({
+  total,
+  page,
+  pageSize,
+}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
+  const router: NextRouter = useRouter();
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  function onChangePagination(page: number, pageSize: number) {
+    if (page) {
+      router.query.page = `${page}`;
+    }
+
+    if (pageSize) {
+      router.query.pageSize = `${pageSize}`;
+    }
+
+    router.push(router);
+  }
 
   function openModal() {
     setIsOpen(true);
@@ -35,7 +53,14 @@ const Dashboard: NextPage = () => {
         ))}
       </Row>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem", marginTop: "1rem" }}>
-        <Pagination className="pagination" defaultCurrent={1} total={50} responsive />
+        <Pagination
+          className="pagination"
+          defaultCurrent={page}
+          defaultPageSize={pageSize}
+          total={total}
+          responsive
+          onChange={onChangePagination}
+        />
       </div>
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
@@ -140,10 +165,14 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const { query } = ctx;
+
   return {
     props: {
-      page: 1,
+      total: query.total || 100,
+      page: query.page || 1,
+      pageSize: query.pageSize || 10,
     },
   };
 };
