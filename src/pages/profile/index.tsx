@@ -4,8 +4,8 @@ import { NextPage } from "next";
 import Image from "next/image";
 import ChangePasswordModal from "@/components/modals/ChangePassword";
 import { useState } from "react";
-import { customStyles2 } from "@/util/modalStyle";
-
+import { customStyles2, mobCustomStyles2 } from "@/util/modalStyle";
+import { useMediaQuery } from "react-responsive";
 const ProfilePage: NextPage = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -16,6 +16,9 @@ const ProfilePage: NextPage = () => {
   function closeModal() {
     setIsOpen(false);
   }
+
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+
   return (
     <div>
       <MainLayout>
@@ -33,7 +36,11 @@ const ProfilePage: NextPage = () => {
             </button>
           </div>
         </div>
-        <ChangePasswordModal modalIsOpen={modalIsOpen} closeModal={closeModal} customStyles={customStyles2} />
+        <ChangePasswordModal
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          customStyles={isTabletOrMobile ? mobCustomStyles2 : customStyles2}
+        />
       </MainLayout>
     </div>
   );

@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "../TopMenu/styles.module.scss";
 import React, { FC } from "react";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 
 interface SideBarProps {
   open: boolean;
@@ -11,6 +12,12 @@ interface SideBarProps {
 }
 
 const SideBar: FC<SideBarProps> = ({ open, onClick }) => {
+  const router = useRouter();
+
+  const logout = () => {
+    sessionStorage.removeItem("auth");
+    router.push("/login");
+  };
   return (
     <>
       <Drawer placement={"left"} closable={false} onClose={onClick} open={open} key={"left"}>
@@ -25,16 +32,18 @@ const SideBar: FC<SideBarProps> = ({ open, onClick }) => {
           </div>
         </div>
         <div style={{ position: "relative", height: "80vh" }}>
-          <div className={styles.mobileSection}>
+          <div onClick={() => router.push("/profile")} className={styles.mobileSection}>
             <div className={styles.avatarContainer}>
-              <Image src="/icons/admin.svg" alt="admin" width={54} height={54} />
+              <Image src="/icons/social_profile.svg" alt="admin" width={54} height={54} />
             </div>
             <div className={styles.text}>
               <p>Admin</p>
               <p>Good Morning!</p>
             </div>
           </div>
-          <button className={styles.mobLogout}>Logout</button>
+          <button onClick={logout} className={styles.mobLogout}>
+            Logout
+          </button>
         </div>
       </Drawer>
     </>

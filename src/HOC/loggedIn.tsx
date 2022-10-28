@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 
 // eslint-disable-next-line react/display-name
 
-const loggedIn = (WrappedComponent) => {
-  return (props) => {
+const loggedIn = (WrappedComponent: any) => {
+  return (props: any) => {
     // checks whether we are on client / browser or server.
     if (typeof window !== "undefined") {
       const Router = useRouter();
