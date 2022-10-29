@@ -34,13 +34,16 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
   };
   useEffect(() => {
     let url = "/img/empty.png";
+
     if (mainImgIndex === -1 && postDetails.mainImageUrl) {
       url = postDetails.mainImageUrl;
     } else if (mainImgIndex >= 0 && postDetails.imagesUrls) {
       url = postDetails.imagesUrls[mainImgIndex];
     }
+
     setMainImgUrl(url);
   }, [mainImgIndex]);
+
   return (
     <div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
