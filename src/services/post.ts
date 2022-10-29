@@ -75,7 +75,7 @@ export async function postAdminService(
     }
   );
 
-  return response.data.data.getAdminPosts as PostsResponse;
+  return response.data?.data?.getAdminPosts as PostsResponse;
 }
 
 export async function getPostDetails(id: string): Promise<Post> {

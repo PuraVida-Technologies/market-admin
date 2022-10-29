@@ -3,11 +3,15 @@ import styles from "./styles.module.scss";
 import { NextPage } from "next";
 import Image from "next/image";
 import ChangePasswordModal from "@/components/modals/ChangePassword";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { customStyles2, mobCustomStyles2 } from "@/util/modalStyle";
 import { useMediaQuery } from "react-responsive";
+import { AuthResponse } from "@/services/auth";
+import withAuth from "@/HOC/withAuth";
+
 const ProfilePage: NextPage = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [auth, setAuth] = useState<AuthResponse["data"]>();
 
   function openModal() {
     setIsOpen(true);
@@ -19,6 +23,13 @@ const ProfilePage: NextPage = () => {
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
+  useEffect(() => {
+    const user = sessionStorage.getItem("auth");
+    setAuth(JSON.parse(user || "{}").auth);
+  }, []);
+
+  console.log(auth?.user);
+
   return (
     <div>
       <MainLayout>
@@ -28,8 +39,8 @@ const ProfilePage: NextPage = () => {
               <Image src="/icons/social_profile.svg" alt="admin" width={120} height={120} />
             </div>
           </div>
-          <p className={styles.nameTag}>Milad Fahmy</p>
-          <p className={styles.captionTag}>miladezzat.f@gmail.com</p>
+          <p className={styles.nameTag}>{auth?.user?.name}</p>
+          <p className={styles.captionTag}>{auth?.user?.email}</p>
           <div className={styles.centerContainer}>
             <button onClick={openModal} className={styles.changePasswoedBtn}>
               Change Password
@@ -46,4 +57,4 @@ const ProfilePage: NextPage = () => {
   );
 };
 
-export default ProfilePage;
+export default withAuth(ProfilePage);
