@@ -28,7 +28,6 @@ const MainLayout = (props: MainLayoutProps): JSX.Element => {
       </Head>
       <Layout className={styles.siteLayout}>
         <TopMenu onclick={() => setIsSideBarOpen(true)} />
-        {/* <Navbar /> */}
         <Content className={styles.content}>{props.children}</Content>
         <SideBar onClick={closeSideBar} open={isSideBarOpen} />
       </Layout>

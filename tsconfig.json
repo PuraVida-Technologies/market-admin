@@ -28,7 +28,7 @@
     "target": "es5",
     "types": ["@types/jest", "node", "@types/testing-library__jest-dom"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/*.d.ts", "src/HOC/withAuth.js", "src/HOC/loggedIn.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/*.d.ts", "src/HOC/withAuth.js", "src/HOC/loggedIn.tsxx"],
   "exclude": ["node_modules"],
   "parserOptions":  {
     "ecmaVersion":  "2020",
