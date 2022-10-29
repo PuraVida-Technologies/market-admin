@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { NextRouter, useRouter } from "next/router";
 import ProductModal from "@/components/modals/ProductModal";
 import { customStyles } from "@/util/modalStyle";
-import { postAdminService, PostsResponse } from "@/services/post";
+import { getPostDetails, Post, postAdminService, PostsResponse } from "@/services/post";
 
 const Dashboard: NextPage = ({
   total,
@@ -16,9 +16,11 @@ const Dashboard: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
   const router: NextRouter = useRouter();
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [postDetails, setPostDetails] = useState<Post>({});
   const [posts, setPosts] = useState<PostsResponse>();
 
   function onChangePagination(page: number, pageSize: number) {
+    console.log({ page, pageSize });
     if (page) {
       router.query.page = `${page}`;
     }
@@ -30,23 +32,27 @@ const Dashboard: NextPage = ({
     router.push(router);
   }
 
-  function openModal(slug?: string) {
-    if (slug) {
-      router.query.slug = slug;
+  function openModal(id?: string) {
+    if (id) {
+      router.query.id = id;
+      router.query.isModalOpen = "true";
       router.push(router);
     }
     setIsOpen(true);
   }
 
+  useEffect(() => {
+    if (router.query.id && router.query.isModalOpen) {
+      setIsOpen(true);
+      getPostDetails(router.query.id as string).then((_postDetails) => setPostDetails(_postDetails));
+    }
+  }, [router]);
+
   function closeModal() {
     setIsOpen(false);
   }
 
-  const [selectedIdx, setSelectedIdx] = useState(1);
-
   useEffect(() => {
-    console.log({ pageSize, page });
-
     postAdminService({ limit: pageSize, page }).then((data) => {
       setPosts(data);
     });
@@ -58,7 +64,7 @@ const Dashboard: NextPage = ({
       <Row gutter={[16, 16]}>
         {posts?.data?.map((post) => {
           return (
-            <Col className="gutter-row" span={6} xs={24} sm={6} md={12} lg={6} key={post._id}>
+            <Col className="gutter-row" span={6} xs={24} sm={12} md={12} lg={8} xl={6} key={post._id}>
               <CustomCard viewDetail={openModal} post={post} />
             </Col>
           );
@@ -72,14 +78,14 @@ const Dashboard: NextPage = ({
           total={posts?.pagination?.total || total}
           responsive
           onChange={onChangePagination}
+          pageSizeOptions={[12, 24, 48, 96]}
         />
       </div>
       <ProductModal
-        setSelectedIdx={setSelectedIdx}
+        postDetails={postDetails}
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         customStyles={customStyles}
-        selectedIdx={selectedIdx}
       />
       ;
     </MainLayout>
@@ -88,12 +94,11 @@ const Dashboard: NextPage = ({
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
-
   return {
     props: {
-      total: query.total || 100,
-      page: query.page || 1,
-      pageSize: query.pageSize || 10,
+      total: query.total ? +query.total : 1,
+      page: query.page ? +query.page : 1,
+      pageSize: query.pageSize ? +query.pageSize : 12,
     },
   };
 };

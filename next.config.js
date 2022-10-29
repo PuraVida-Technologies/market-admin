@@ -11,6 +11,9 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: [process.env.BASE_URL, "placeimg.com"],
+  },
   env: {
     BASE_URL: process.env.BASE_URL,
   },
