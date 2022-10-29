@@ -75,7 +75,7 @@ const ProductModal: FC<ProductModalProps> = ({
                     height="100%"
                     layout="fill"
                   />
-                </div>{" "}
+                </div>
               </div>
             </div>
             <div className="">

@@ -1,14 +1,14 @@
 import "antd/dist/antd.css";
 import React, { FC } from "react";
 import { Card, Button } from "antd";
+import { Post } from "@/services/post";
 
 interface CustomCardProps {
-  coverImage: string;
-  approved: boolean;
+  post: Post;
   viewDetail: () => void;
 }
 
-const CustomCard: FC<CustomCardProps> = ({ coverImage, approved, viewDetail }) => {
+const CustomCard: FC<CustomCardProps> = ({ post, viewDetail }) => {
   return (
     <Card
       hoverable
@@ -17,7 +17,7 @@ const CustomCard: FC<CustomCardProps> = ({ coverImage, approved, viewDetail }) =
       cover={
         <img
           alt="example"
-          src={coverImage ? coverImage : "/img/empty.png"}
+          src={post.mainImageUrl ? post.mainImageUrl : "/img/empty.png"}
           width="100%"
           style={{
             width: "100%",
@@ -46,7 +46,7 @@ const CustomCard: FC<CustomCardProps> = ({ coverImage, approved, viewDetail }) =
         >
           View Details
         </Button>
-        {approved && (
+        {post.status && (
           <Button
             type="primary"
             shape="round"

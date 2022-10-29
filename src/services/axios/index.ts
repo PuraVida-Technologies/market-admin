@@ -18,14 +18,17 @@ axiosClient.interceptors.request.use(
     let user;
 
     if (typeof window !== "undefined") {
-      const userData = sessionStorage.getItem("user");
+      const userData = sessionStorage.getItem("auth");
       user = userData && JSON.parse(userData);
     }
 
+    console.log({ user });
+
+
     let AuthStr;
 
-    if (user.token) {
-      AuthStr = "Bearer " + user.token;
+    if (user.auth) {
+      AuthStr = "Bearer " + user.auth.token;
       if (config.headers) config.headers["Authorization"] = AuthStr ?? "";
     }
 
