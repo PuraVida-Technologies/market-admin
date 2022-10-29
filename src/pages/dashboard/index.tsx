@@ -1,13 +1,13 @@
-import CustomCard from "@/components/CustomCard";
-import MainLayout from "@/components/layouts/Main";
-import FilterBar from "@/components/FilterBar";
 import { Col, Row, Pagination } from "antd";
-import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from "next";
-import React, { useEffect, useState } from "react";
-import { NextRouter, useRouter } from "next/router";
-import ProductModal from "@/components/modals/ProductModal";
 import { customStyles } from "@/util/modalStyle";
 import { getPostDetails, Post, postAdminService, PostsResponse } from "@/services/post";
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from "next";
+import { NextRouter, useRouter } from "next/router";
+import CustomCard from "@/components/CustomCard";
+import FilterBar from "@/components/FilterBar";
+import MainLayout from "@/components/layouts/Main";
+import ProductModal from "@/components/modals/ProductModal";
+import React, { useEffect, useState } from "react";
 
 const Dashboard: NextPage = ({
   total,
@@ -38,6 +38,7 @@ const Dashboard: NextPage = ({
       router.query.isModalOpen = "true";
       router.push(router);
     }
+
     setIsOpen(true);
   }
 
@@ -49,6 +50,13 @@ const Dashboard: NextPage = ({
   }, [router]);
 
   function closeModal() {
+    // 👇️ delete each query param
+    delete router.query["id"];
+    delete router.query["isModalOpen"];
+
+    // 👇️ update state after
+    router.push(router, undefined, { shallow: true });
+
     setIsOpen(false);
   }
 
