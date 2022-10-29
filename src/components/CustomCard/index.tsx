@@ -5,7 +5,7 @@ import { Post } from "@/services/post";
 
 interface CustomCardProps {
   post: Post;
-  viewDetail: () => void;
+  viewDetail: (slug?: string) => void;
 }
 
 const CustomCard: FC<CustomCardProps> = ({ post, viewDetail }) => {
@@ -41,28 +41,26 @@ const CustomCard: FC<CustomCardProps> = ({ post, viewDetail }) => {
           type="primary"
           shape="round"
           size={"middle"}
-          onClick={viewDetail}
+          onClick={() => viewDetail(post.slug)}
           style={{ background: "#3653FE", color: "#ffffff", border: "none", outline: "none", marginTop: "1rem" }}
         >
           View Details
         </Button>
-        {post.status && (
-          <Button
-            type="primary"
-            shape="round"
-            size={"middle"}
-            style={{
-              background: "#55A588",
-              color: "#ffffff",
-              border: "none",
-              marginLeft: ".5rem",
-              outline: "none",
-              marginTop: "1rem",
-            }}
-          >
-            Approved
-          </Button>
-        )}
+        <Button
+          type="primary"
+          shape="round"
+          size={"middle"}
+          style={{
+            background: "#55A588",
+            color: "#ffffff",
+            border: "none",
+            marginLeft: ".5rem",
+            outline: "none",
+            marginTop: "1rem",
+          }}
+        >
+          {post.status}
+        </Button>
       </div>
     </Card>
   );

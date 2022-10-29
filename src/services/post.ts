@@ -9,6 +9,7 @@ export type Post = {
   createdAt?: string;
   imagesUrls?: string[];
   mainImageUrl?: string;
+  slug?: string;
 };
 
 export type PostsResponse = {

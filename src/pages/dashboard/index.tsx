@@ -30,7 +30,11 @@ const Dashboard: NextPage = ({
     router.push(router);
   }
 
-  function openModal() {
+  function openModal(slug?: string) {
+    if (slug) {
+      router.query.slug = slug;
+      router.push(router);
+    }
     setIsOpen(true);
   }
 
