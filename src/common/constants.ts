@@ -10,8 +10,13 @@ export const apiHealthStatus = {
   OK: "OK",
 };
 
-export const puraVidaEndpoints = {
-  CLIENT_SUMMARY: "client/summary/all",
-};
-
 export const PUBLIC_CONFIG_SESSION_KEY = "public-config";
+
+export const DASHBOARD = {
+  views: {
+    post: "post-view",
+    tag: "tag-view",
+    map: "map-view",
+    updatePostRequest: "update-post-request-view",
+  },
+};
