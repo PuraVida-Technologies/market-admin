@@ -1,7 +1,7 @@
 import { Post, updatePostStatus } from "@/services/post";
 import { Button, Input, Space } from "antd";
 import Image from "next/image";
-import { FC, useState, ChangeEvent, useEffect } from "react";
+import { FC, useState, ChangeEvent, ChangeEventHandler, useEffect } from "react";
 import Modal from "react-modal";
 import { useMediaQuery } from "react-responsive";
 import styles from "./styles.module.scss";
@@ -15,13 +15,15 @@ interface ProductModalProps {
   customStyles: any;
 }
 
+const { TextArea } = Input;
+
 const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeModal, customStyles }) => {
   const [mainImgIndex, setMainImgIndex] = useState<number>(-1);
   const [mainImgUrl, setMainImgUrl] = useState("");
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const [reason, setReason] = useState("");
-  const handlereasonChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlereasonChange: ChangeEventHandler<HTMLTextAreaElement> = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReason(e.target.value);
   };
   const handleUpdatePostStatus = async (state: string) => {
@@ -56,8 +58,8 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
           <div className="grid-2">
             <div>
               <Image src={mainImgUrl as string} width="400px" height="300px" alt="food image" />
-              <div className="grid-3" style={{ width: isTabletOrMobile ? "100%" : "70%", height: "5rem" }}>
-                {postDetails.imagesUrls?.slice(0, 3)?.map((url, index) => (
+              <div className={styles.bottomSlider} style={{ width: isTabletOrMobile ? "100%" : "400px" }}>
+                {postDetails.imagesUrls?.map((url, index) => (
                   <div
                     key={url}
                     style={{ border: mainImgIndex === index ? "3px solid #3653FE" : "" }}
@@ -95,6 +97,10 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
                 <p className="description-1 modal-description-1">{postDetails.description}</p>
               </div>
 
+              <div className={styles.inputContainer}>
+                Reason (optional) :
+                <TextArea onChange={handlereasonChange} rows={4} />
+              </div>
               <div>
                 <Button
                   onClick={() => handleUpdatePostStatus("approved")}
@@ -119,10 +125,6 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
                 >
                   Decline
                 </Button>
-              </div>
-              <div className={styles.inputContainer}>
-                Reason:
-                <Input onChange={handlereasonChange}></Input>
               </div>
             </div>
           </div>
