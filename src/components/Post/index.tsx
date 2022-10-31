@@ -49,10 +49,12 @@ export default function PostView(props: IPostProps): JSX.Element {
   }, [router]);
 
   useEffect(() => {
-    postAdminService({ limit: pageSize, page }).then((data) => {
-      setPosts(data);
-    });
-  }, [pageSize, page]);
+    if (router.query.isModalOpen !== "true") {
+      postAdminService({ limit: pageSize, page }).then((data) => {
+        setPosts(data);
+      });
+    }
+  }, [pageSize, page, router]);
 
   function onChangePagination(page: number, pageSize: number) {
     console.log({ page, pageSize });

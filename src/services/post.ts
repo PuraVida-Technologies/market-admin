@@ -2,7 +2,7 @@ import axios from "axios";
 
 export type Post = {
   name?: string;
-  status?: boolean;
+  status?: string;
   description?: string;
   _id?: string;
   address?: string;
