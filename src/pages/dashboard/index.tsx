@@ -24,7 +24,7 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
 
   const Views = {
     [DASHBOARD.views.post]: <PostView page={page} total={total} pageSize={pageSize} />,
-    [DASHBOARD.views.tag]: <TagView />,
+    [DASHBOARD.views.tag]: <TagView page={page} total={total} pageSize={pageSize} />,
     [DASHBOARD.views.map]: <MapView />,
     [DASHBOARD.views.updatePostRequest]: <PostUpdateRequestView />,
   };
@@ -45,6 +45,7 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
+
   return {
     props: {
       total: query.total ? +query.total : 1,

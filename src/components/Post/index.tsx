@@ -57,7 +57,6 @@ export default function PostView(props: IPostProps): JSX.Element {
   }, [pageSize, page, router]);
 
   function onChangePagination(page: number, pageSize: number) {
-    console.log({ page, pageSize });
     if (page) {
       router.query.page = `${page}`;
     }
