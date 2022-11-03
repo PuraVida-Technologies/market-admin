@@ -19,8 +19,6 @@ const CustomCard: FC<CustomCardProps> = ({ post, viewDetail }) => {
   //@ts-ignore
   const statusClassName: string = statusClass[post.status.toLowerCase() || "approved"];
 
-  console.log({ statusClassName });
-
   return (
     <Card
       hoverable

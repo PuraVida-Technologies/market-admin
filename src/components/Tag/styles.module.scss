@@ -1,0 +1,45 @@
+.approvedStatus {
+    background: #55A588;
+    color: #fff;
+    border: none;
+    margin-left: .5rem;
+    outline: none;
+    margin-top: 1rem;
+    height: 32px;
+    padding: 4px 16px;
+    font-size: 14px;
+    border-radius: 32px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.rejectedStatus {
+    background: red;
+    color: #fff;
+    border: none;
+    margin-left: .5rem;
+    outline: none;
+    margin-top: 1rem;
+    height: 32px;
+    padding: 4px 16px;
+    font-size: 14px;
+    border-radius: 32px;
+    display: inline-flex;
+    align-items: center;
+}
+
+
+.pendingStatus {
+    background: rgb(177, 177, 102);
+    color: #fff;
+    border: none;
+    margin-left: .5rem;
+    outline: none;
+    margin-top: 1rem;
+    height: 32px;
+    padding: 4px 16px;
+    font-size: 14px;
+    border-radius: 32px;
+    display: inline-flex;
+    align-items: center;
+}
