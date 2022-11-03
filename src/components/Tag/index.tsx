@@ -1,7 +1,7 @@
 import "antd/dist/antd.css";
 import { ColumnsType, TablePaginationConfig } from "antd/lib/table";
 import { format, parseISO } from "date-fns";
-import { getTagDetails, Tag, tagsAdminService, TagsResponse } from "@/services/tag";
+import { Tag, tagsAdminService, TagsResponse } from "@/services/tag";
 import { NextRouter, useRouter } from "next/router";
 import { Col, Row, Table, Tag as TagComponent } from "antd";
 import React, { ReactNode, useEffect, useState } from "react";
@@ -19,14 +19,14 @@ export default function TagView(props: ITagProps): JSX.Element {
   console.log({ page, pageSize, total });
 
   const router: NextRouter = useRouter();
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [tagsDetails, setTagDetails] = useState<Tag>({});
+  // const [modalIsOpen, setIsOpen] = useState(false);
+  // const [tagsDetails, setTagDetails] = useState<Tag>({});
   const [tags, setTags] = useState<TagsResponse>();
 
   useEffect(() => {
     if (router.query.id && router.query.isModalOpen) {
-      setIsOpen(true);
-      getTagDetails(router.query.id as string).then((_tagsDetails) => setTagDetails(_tagsDetails));
+      // setIsOpen(true);
+      // getTagDetails(router.query.id as string).then((_tagsDetails) => setTagDetails(_tagsDetails));
     }
   }, [router]);
 
