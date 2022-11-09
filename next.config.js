@@ -12,7 +12,13 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: [process.env.BASE_URL, "placeimg.com", "www.google.com", 'storage.googleapis.com'],
+    domains: [
+      process.env.BASE_URL,
+      "placeimg.com",
+      "www.google.com",
+      "storage.googleapis.com",
+      "ik.imagekit.io",
+    ],
   },
   env: {
     BASE_URL: process.env.BASE_URL,
