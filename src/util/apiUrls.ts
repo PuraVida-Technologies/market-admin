@@ -1,2 +1,2 @@
-const baseUrl = process.env.PURA_VIDA_BASE_URL;
+const baseUrl = process.env.BASE_URL;
 export const userUrl = baseUrl;

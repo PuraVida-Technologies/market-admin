@@ -1,4 +1,4 @@
-export const greeting = () => {
+export const greeting = (): JSX.Element => {
   const myDate = new Date();
   const hours = myDate.getHours();
   let greet;
