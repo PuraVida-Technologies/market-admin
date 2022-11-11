@@ -1,7 +1,7 @@
 import "./globals.css";
 import "antd/dist/antd.css";
 import App, { AppInitialProps } from "next/app";
-import type { ApplicationProperties } from "@/types";
+import type { ApplicationProperties } from "@/types/ApplicationProperties";
 import NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +10,6 @@ import type { AppContext } from "next/app";
 function Application({ Component, pageProps }: ApplicationProperties): JSX.Element {
   return (
     <div>
-      {" "}
       <NextNProgress
         color="#3653fe"
         startPosition={0.3}

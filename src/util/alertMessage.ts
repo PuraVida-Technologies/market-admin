@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const notify = (message: string, type: string) => {
+export const notify = (message: string, type: string): void => {
   switch (type) {
     case "error":
       toast.error(message);
