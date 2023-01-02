@@ -1,6 +1,5 @@
 import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from "next";
 import FilterBar from "@/components/FilterBar";
-import MainLayout from "@/components/layouts/Main";
 import PostView from "@/components/Post";
 import { useEffect, useState } from "react";
 import { DASHBOARD } from "@/common/constants";
@@ -8,6 +7,11 @@ import { NextRouter, useRouter } from "next/router";
 import TagView from "@/components/Tag";
 import MapView from "@/components/Map";
 import PostUpdateRequestView from "@/components/PostUpdateRequest";
+
+import dynamic from "next/dynamic";
+const MainLayout = dynamic(() => import("@/components/layouts/Main"), {
+  ssr: false,
+});
 
 const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
   const { total, page, pageSize, defaultView } = props;

@@ -1,4 +1,3 @@
-import MainLayout from "@/components/layouts/Main";
 import styles from "./styles.module.scss";
 import { NextPage } from "next";
 import Image from "next/image";
@@ -8,6 +7,11 @@ import { customStyles2, mobCustomStyles2 } from "@/util/modalStyle";
 import { useMediaQuery } from "react-responsive";
 import { AuthResponse } from "@/services/auth";
 import withAuth from "@/HOC/withAuth";
+
+import dynamic from "next/dynamic";
+const MainLayout = dynamic(() => import("@/components/layouts/Main"), {
+  ssr: false,
+});
 
 const ProfilePage: NextPage = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -31,29 +35,27 @@ const ProfilePage: NextPage = () => {
   console.log(auth?.user);
 
   return (
-    <div>
-      <MainLayout>
-        <div>
-          <div className={styles.centerContainer}>
-            <div className={styles.avatarContainer}>
-              <Image src="/icons/social_profile.svg" alt="admin" width={120} height={120} />
-            </div>
-          </div>
-          <p className={styles.nameTag}>{auth?.user?.name}</p>
-          <p className={styles.captionTag}>{auth?.user?.email}</p>
-          <div className={styles.centerContainer}>
-            <button onClick={openModal} className={styles.changePasswoedBtn}>
-              Change Password
-            </button>
+    <MainLayout>
+      <div>
+        <div className={styles.centerContainer}>
+          <div className={styles.avatarContainer}>
+            <Image src="/icons/social_profile.svg" alt="admin" width={120} height={120} />
           </div>
         </div>
-        <ChangePasswordModal
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          customStyles={isTabletOrMobile ? mobCustomStyles2 : customStyles2}
-        />
-      </MainLayout>
-    </div>
+        <p className={styles.nameTag}>{auth?.user?.name}</p>
+        <p className={styles.captionTag}>{auth?.user?.email}</p>
+        <div className={styles.centerContainer}>
+          <button onClick={openModal} className={styles.changePasswoedBtn}>
+            Change Password
+          </button>
+        </div>
+      </div>
+      <ChangePasswordModal
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        customStyles={isTabletOrMobile ? mobCustomStyles2 : customStyles2}
+      />
+    </MainLayout>
   );
 };
 
