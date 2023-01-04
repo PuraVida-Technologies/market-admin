@@ -1,45 +1,62 @@
 .approvedStatus {
-    background: #55A588;
-    color: #fff;
-    border: none;
-    margin-left: .5rem;
-    outline: none;
-    margin-top: 1rem;
-    height: 32px;
-    padding: 4px 16px;
-    font-size: 14px;
-    border-radius: 32px;
-    display: inline-flex;
-    align-items: center;
+  background: #55a588;
+  color: #fff;
+  border: none;
+  margin-left: 0.5rem;
+  outline: none;
+  margin-top: 1rem;
+  height: 32px;
+  padding: 4px 16px;
+  font-size: 14px;
+  border-radius: 32px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .rejectedStatus {
-    background: red;
-    color: #fff;
-    border: none;
-    margin-left: .5rem;
-    outline: none;
-    margin-top: 1rem;
-    height: 32px;
-    padding: 4px 16px;
-    font-size: 14px;
-    border-radius: 32px;
-    display: inline-flex;
-    align-items: center;
+  background: red;
+  color: #fff;
+  border: none;
+  margin-left: 0.5rem;
+  outline: none;
+  margin-top: 1rem;
+  height: 32px;
+  padding: 4px 16px;
+  font-size: 14px;
+  border-radius: 32px;
+  display: inline-flex;
+  align-items: center;
 }
 
-
 .pendingStatus {
-    background: rgb(177, 177, 102);
-    color: #fff;
-    border: none;
-    margin-left: .5rem;
-    outline: none;
-    margin-top: 1rem;
-    height: 32px;
-    padding: 4px 16px;
-    font-size: 14px;
-    border-radius: 32px;
-    display: inline-flex;
-    align-items: center;
+  background: rgb(177, 177, 102);
+  color: #fff;
+  border: none;
+  margin-left: 0.5rem;
+  outline: none;
+  margin-top: 1rem;
+  height: 32px;
+  padding: 4px 16px;
+  font-size: 14px;
+  border-radius: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  p {
+    flex-shrink: 0;
+    margin: 0;
+    margin-inline-end: 1rem;
+    min-width: 100px;
+  }
+}
+
+.createNewTag {
+  display: flex;
+  margin-left: auto;
+  margin-bottom: 32px;
 }

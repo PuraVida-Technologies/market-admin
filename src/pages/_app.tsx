@@ -6,10 +6,12 @@ import NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import type { AppContext } from "next/app";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "@/apollo";
 
 function Application({ Component, pageProps }: ApplicationProperties): JSX.Element {
   return (
-    <div>
+    <ApolloProvider client={client}>
       <NextNProgress
         color="#3653fe"
         startPosition={0.3}
@@ -20,7 +22,7 @@ function Application({ Component, pageProps }: ApplicationProperties): JSX.Eleme
       />
       <ToastContainer />
       <Component {...pageProps} />
-    </div>
+    </ApolloProvider>
   );
 }
 

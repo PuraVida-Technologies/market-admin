@@ -1,12 +1,20 @@
 import "antd/dist/antd.css";
 import { ColumnsType, TablePaginationConfig } from "antd/lib/table";
 import { format, parseISO } from "date-fns";
-import { Tag, tagsAdminService, TagsResponse } from "@/services/tag";
+import { createAdminTag, Tag, tagsAdminService, TagsResponse } from "@/services/tag";
 import { NextRouter, useRouter } from "next/router";
 import { Col, Row, Table, Tag as TagComponent } from "antd";
-import React, { ReactNode, useEffect, useState } from "react";
+import { Button, Modal, Input } from "antd";
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import TagActionsColumn from "../TagActionsColumn";
+import { useMutation } from "@apollo/client";
+import { uploadFileMutation } from "@/services/upload";
+
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { message, Upload } from "antd";
+import type { UploadChangeParam } from "antd/es/upload";
+import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 
 interface ITagProps {
   pageSize: number;
@@ -16,7 +24,80 @@ interface ITagProps {
 
 export default function TagView(props: ITagProps): JSX.Element {
   const { page, pageSize, total } = props;
-  console.log({ page, pageSize, total });
+
+  const [loading, setIsLoading] = useState(false);
+  const [isImageUploading, setIsImageUploading] = useState(false);
+  const [englishName, setEnglishName] = useState("");
+  const [spanishName, setSpanishName] = useState("");
+  const [imageUrl, setImageUrl] = useState<string>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
+    if (info.file.status === "uploading") {
+      setIsImageUploading(true);
+      return;
+    }
+    if (info.file.status === "done") {
+      onDrop(info.file.originFileObj as File);
+    }
+  };
+
+  useEffect(() => {
+    if (englishName && spanishName && imageUrl) {
+      setIsDisabled(false);
+    }
+  }, [englishName, spanishName, imageUrl]);
+
+  const beforeUpload = (file: RcFile) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG file!");
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error("Image must smaller than 2MB!");
+    }
+    return isJpgOrPng && isLt2M;
+  };
+  const [uploadFile] = useMutation(uploadFileMutation);
+  const onDrop = useCallback(
+    (file: File) => {
+      uploadFile({ variables: { file } }).then((res) => {
+        setImageUrl(res?.data?.uploadFile?.url);
+      });
+    },
+    [uploadFile]
+  );
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsLoading(true);
+    createAdminTag({
+      names: [
+        { language: "en-us", name: englishName },
+        { language: "es-spa", name: spanishName },
+      ],
+      icon: imageUrl as string,
+    }).then(() => {
+      resetThenClose();
+    });
+  };
+
+  const resetThenClose = () => {
+    setIsLoading(false);
+    setIsImageUploading(false);
+    setEnglishName("");
+    setSpanishName("");
+    setImageUrl("");
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    resetThenClose();
+  };
 
   const router: NextRouter = useRouter();
   // const [modalIsOpen, setIsOpen] = useState(false);
@@ -31,12 +112,12 @@ export default function TagView(props: ITagProps): JSX.Element {
   }, [router]);
 
   useEffect(() => {
-    if (router.query.isModalOpen !== "true") {
+    if (!isModalOpen) {
       tagsAdminService({ limit: pageSize, page }).then((response) => {
         setTags(response);
       });
     }
-  }, [pageSize, page, router]);
+  }, [pageSize, page, router, isModalOpen]);
 
   const handleOnChange = (page: TablePaginationConfig) => {
     const { pageSize, current } = page;
@@ -48,6 +129,12 @@ export default function TagView(props: ITagProps): JSX.Element {
 
     router.push(router);
   };
+  const uploadButton = (
+    <div>
+      {isImageUploading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>{isImageUploading ? "Uploading" : "Upload"}</div>
+    </div>
+  );
 
   const statusClass: { [key: string]: string } = {
     approved: styles.approvedStatus,
@@ -88,24 +175,66 @@ export default function TagView(props: ITagProps): JSX.Element {
       fixed: "right",
     },
   ];
+
   return (
-    <Row gutter={[16, 16]}>
-      <Col xs={24}>
-        {tags?.data?.length && (
-          <Table
-            dataSource={tags?.data}
-            columns={columns}
-            onChange={handleOnChange}
-            pagination={{
-              defaultCurrent: page,
-              defaultPageSize: pageSize,
-              total: tags?.pagination?.total || total,
-              showSizeChanger: true,
-              pageSizeOptions: [12, 24, 48, 96],
-            }}
-          />
-        )}
-      </Col>
-    </Row>
+    <>
+      <Button className={styles.createNewTag} type="primary" onClick={showModal}>
+        Create New Tag
+      </Button>
+      <Modal
+        title="Create Tag"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button key="submit" type="primary" loading={loading} onClick={handleOk} disabled={isDisabled}>
+            Add
+          </Button>,
+        ]}
+      >
+        <div className={styles.inputContainer}>
+          <p>English Name:</p>
+          <Input value={englishName} onChange={(e) => setEnglishName(e.target.value)} />
+        </div>
+        <div className={styles.inputContainer}>
+          <p>Spanish Name:</p>
+          <Input value={spanishName} onChange={(e) => setSpanishName(e.target.value)} />
+        </div>
+        <div className={styles.inputContainer}>
+          <p>Tag Icon:</p>
+          <Upload
+            name="tag"
+            listType="picture-card"
+            className="tag-uploader"
+            showUploadList={false}
+            beforeUpload={beforeUpload}
+            onChange={handleChange}
+          >
+            {imageUrl ? <img src={imageUrl} alt="tag" style={{ width: "100%" }} /> : uploadButton}
+          </Upload>
+        </div>
+      </Modal>
+      <Row gutter={[16, 16]}>
+        <Col xs={24}>
+          {tags?.data?.length && (
+            <Table
+              dataSource={tags?.data}
+              columns={columns}
+              onChange={handleOnChange}
+              pagination={{
+                defaultCurrent: page,
+                defaultPageSize: pageSize,
+                total: tags?.pagination?.total || total,
+                showSizeChanger: true,
+                pageSizeOptions: [12, 24, 48, 96],
+              }}
+            />
+          )}
+        </Col>
+      </Row>
+    </>
   );
 }
