@@ -20,9 +20,28 @@ export type TagsResponse = {
   errors?: string;
 };
 
+type AdminTagResponse = {
+  _id: string;
+  name: string;
+  description: string;
+  icon: string;
+  status: string;
+  errors?: string;
+};
+
 type GetTagssAdminOptions = {
   limit: number;
   page: number;
+};
+
+type AdminTagName = {
+  language: string;
+  name: string;
+};
+
+type CreateAdminTagArgs = {
+  names: AdminTagName[];
+  icon: string;
 };
 
 export async function tagsAdminService(
@@ -69,6 +88,43 @@ export async function tagsAdminService(
   );
 
   return response.data?.data?.getAdminTags as TagsResponse;
+}
+
+export async function createAdminTag(
+  options: CreateAdminTagArgs
+): Promise<AdminTagResponse> {
+  const { names, icon } = options;
+  const href = process.env.BASE_URL || "";
+
+  const userData = sessionStorage.getItem("auth");
+  const user = userData && JSON.parse(userData);
+
+  const response = await axios.post(
+    href,
+    {
+      query: `mutation($names: [AdminTagName!]!, $icon: String!){
+        createAdminTag(createAdminTagInput: { names: $names, icon: $icon }){   
+          _id
+          name
+          description
+          icon
+          status
+        }
+      }`,
+      variables: {
+        names,
+        icon,
+      },
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + user?.auth?.token,
+      },
+    }
+  );
+
+  return response.data?.data?.createAdminTag as AdminTagResponse;
 }
 
 export async function getTagDetails(id: string): Promise<Tag> {
