@@ -1,8 +1,14 @@
 import axios from "axios";
 
+export type TagNameObj = {
+  language: string;
+  name: string;
+};
+
 export type Tag = {
-  _id?: string;
-  name?: string;
+  _id: string;
+  names?: TagNameObj[];
+  icon: string;
   createdAt?: string;
   updatedAt?: string;
   status?: string;
@@ -44,6 +50,14 @@ type CreateAdminTagArgs = {
   icon: string;
 };
 
+type ApproveOrRejectAdminTagArgs = {
+  id: string;
+  status: string;
+  reason?: string;
+  names?: AdminTagName[];
+  icon?: string;
+};
+
 export async function tagsAdminService(
   options: GetTagssAdminOptions
 ): Promise<TagsResponse> {
@@ -60,10 +74,16 @@ export async function tagsAdminService(
         getAdminTags(getAdminTagsInput: { limit: $limit, page: $page }){   
           data {
             _id
-            name
+            names {
+              language
+              name
+              slug
+              description
+            }
             createdAt
             updatedAt
             status
+            icon
           }
         pagination {
             total,
@@ -105,13 +125,60 @@ export async function createAdminTag(
       query: `mutation($names: [AdminTagName!]!, $icon: String!){
         createAdminTag(createAdminTagInput: { names: $names, icon: $icon }){   
           _id
-          name
-          description
+          names {
+            language
+            name
+            slug
+          }
           icon
           status
         }
       }`,
       variables: {
+        names,
+        icon,
+      },
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + user?.auth?.token,
+      },
+    }
+  );
+
+  return response.data?.data?.createAdminTag as AdminTagResponse;
+}
+
+export async function approveOrRejectAdminTag(
+  options: ApproveOrRejectAdminTagArgs
+): Promise<AdminTagResponse> {
+  const { id, status, reason, names, icon } = options;
+  const href = process.env.BASE_URL || "";
+
+  const userData = sessionStorage.getItem("auth");
+  const user = userData && JSON.parse(userData);
+
+  const response = await axios.post(
+    href,
+    {
+      query: `mutation($id: String!, $status: String!, $reason: String, $names: [TagName!], $icon: String){
+        approveOrRejectAdminTag(approveOrRejectAdminTagInput: { id: $id, status: $status, reason: $reason,names: $names, icon: $icon }){   
+          _id
+          names {
+            language
+            name
+            slug
+            description
+          }
+          icon
+          status
+        }
+      }`,
+      variables: {
+        id,
+        status,
+        reason,
         names,
         icon,
       },

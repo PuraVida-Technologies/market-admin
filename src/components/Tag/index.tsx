@@ -15,6 +15,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 import type { UploadChangeParam } from "antd/es/upload";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import UpdateTagModal from "./UpdateTagModal";
 
 interface ITagProps {
   pageSize: number;
@@ -25,6 +26,8 @@ interface ITagProps {
 export default function TagView(props: ITagProps): JSX.Element {
   const { page, pageSize, total } = props;
 
+  const [selectedTag, setSelectedTag] = useState(null);
+  const [isUpdateTagModalOpen, setIsUpdateTagModalOpen] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [englishName, setEnglishName] = useState("");
@@ -41,6 +44,10 @@ export default function TagView(props: ITagProps): JSX.Element {
       onDrop(info.file.originFileObj as File);
     }
   };
+
+  useEffect(() => {
+    if (selectedTag) setIsUpdateTagModalOpen(true);
+  }, [selectedTag]);
 
   useEffect(() => {
     if (englishName && spanishName && imageUrl) {
@@ -100,16 +107,7 @@ export default function TagView(props: ITagProps): JSX.Element {
   };
 
   const router: NextRouter = useRouter();
-  // const [modalIsOpen, setIsOpen] = useState(false);
-  // const [tagsDetails, setTagDetails] = useState<Tag>({});
   const [tags, setTags] = useState<TagsResponse>();
-
-  useEffect(() => {
-    if (router.query.id && router.query.isModalOpen) {
-      // setIsOpen(true);
-      // getTagDetails(router.query.id as string).then((_tagsDetails) => setTagDetails(_tagsDetails));
-    }
-  }, [router]);
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -117,7 +115,7 @@ export default function TagView(props: ITagProps): JSX.Element {
         setTags(response);
       });
     }
-  }, [pageSize, page, router, isModalOpen]);
+  }, [pageSize, page, router, isModalOpen, isUpdateTagModalOpen]);
 
   const handleOnChange = (page: TablePaginationConfig) => {
     const { pageSize, current } = page;
@@ -145,8 +143,11 @@ export default function TagView(props: ITagProps): JSX.Element {
   const columns: ColumnsType<Tag> = [
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: "names",
       key: "name",
+      render: (names): ReactNode => {
+        return <>{names[0].name}</>;
+      },
     },
     {
       title: "Create At",
@@ -171,7 +172,13 @@ export default function TagView(props: ITagProps): JSX.Element {
       ellipsis: true,
       key: "operations",
       align: "center",
-      render: TagActionsColumn,
+      render: (tag) => {
+        if (tag.status === "pending") {
+          const onClick = () => setSelectedTag(tag);
+          return <TagActionsColumn {...{ onClick }} />;
+        }
+        return null;
+      },
       fixed: "right",
     },
   ];
@@ -235,6 +242,12 @@ export default function TagView(props: ITagProps): JSX.Element {
           )}
         </Col>
       </Row>
+      <UpdateTagModal
+        isModalOpen={isUpdateTagModalOpen}
+        setIsModalOpen={setIsUpdateTagModalOpen}
+        selectedTag={selectedTag as unknown as Tag}
+        {...{ setSelectedTag }}
+      />
     </>
   );
 }
