@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 ENV PORT=3000
 EXPOSE ${PORT}
@@ -6,6 +6,6 @@ EXPOSE ${PORT}
 WORKDIR /app
 COPY . .
 
-RUN yarn ci-build
+RUN yarn build
 
 CMD ["yarn", "start"]
