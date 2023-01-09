@@ -148,6 +148,7 @@ export default function TagView(props: ITagProps): JSX.Element {
       render: (names): ReactNode => {
         return <>{names[0].name}</>;
       },
+      fixed: "left",
     },
     {
       title: "Create At",
@@ -179,7 +180,6 @@ export default function TagView(props: ITagProps): JSX.Element {
         }
         return null;
       },
-      fixed: "right",
     },
   ];
 
@@ -202,11 +202,11 @@ export default function TagView(props: ITagProps): JSX.Element {
           </Button>,
         ]}
       >
-        <div className={styles.inputContainer}>
+        <div className={`${styles.inputContainer} ${styles.textInputContainer}`}>
           <p>English Name:</p>
           <Input value={englishName} onChange={(e) => setEnglishName(e.target.value)} />
         </div>
-        <div className={styles.inputContainer}>
+        <div className={`${styles.inputContainer} ${styles.textInputContainer}`}>
           <p>Spanish Name:</p>
           <Input value={spanishName} onChange={(e) => setSpanishName(e.target.value)} />
         </div>
@@ -231,6 +231,7 @@ export default function TagView(props: ITagProps): JSX.Element {
               dataSource={tags?.data}
               columns={columns}
               onChange={handleOnChange}
+              scroll={{ x: 520 }}
               pagination={{
                 defaultCurrent: page,
                 defaultPageSize: pageSize,

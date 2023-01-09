@@ -2,7 +2,7 @@
   position: fixed;
   padding: 16px;
   width: 100%;
-  z-index: 1;
+  z-index: 3;
   height: 80px;
   display: flex;
   align-items: center;
@@ -38,7 +38,7 @@
   display: none;
 }
 
-.mobLogout{
+.mobLogout {
   position: absolute;
   bottom: 2rem;
   font-size: 20px;
@@ -46,7 +46,6 @@
   background-color: transparent;
   color: #ff0000;
 }
-
 
 .mobileSection {
   margin-top: 2rem;
@@ -118,7 +117,7 @@
     position: fixed;
     padding: 16px 22px 16px 40px;
     width: 100%;
-    z-index: 1;
+    z-index: 3;
     height: 80px;
     display: flex;
     align-items: center;
