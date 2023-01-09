@@ -140,11 +140,11 @@ export default function UpdateTagModal({
         </Button>,
       ]}
     >
-      <div className={styles.inputContainer}>
+      <div className={`${styles.inputContainer} ${styles.textInputContainer}`}>
         <p>English Name:</p>
         <Input value={englishName} onChange={(e) => setEnglishName(e.target.value)} />
       </div>
-      <div className={styles.inputContainer}>
+      <div className={`${styles.inputContainer} ${styles.textInputContainer}`}>
         <p>Spanish Name:</p>
         <Input value={spanishName} onChange={(e) => setSpanishName(e.target.value)} />
       </div>
