@@ -1,16 +1,25 @@
 import "antd/dist/antd.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import CustomDatePicker from "../DatePicker";
 import Bubble from "../Bubble";
 import { Button, Dropdown, Menu } from "antd";
 import { DASHBOARD } from "@/common/constants";
+import { useRouter } from "next/router";
 
 type FilterBarProps = {
   handleView: (view: string) => void;
 };
 
 export default function FilterBar({ handleView }: FilterBarProps): JSX.Element {
+  const [title, setTitle] = useState("listing");
+  const router = useRouter();
+  useEffect(() => {
+    if (router.query.view && typeof router.query.view === "string") {
+      const title = (router.query.view as string).split("-view")[0].split("-").join(" ");
+      setTitle(title);
+    }
+  }, [router.query]);
   const viewsMenu = (
     <Menu
       items={[
@@ -44,7 +53,7 @@ export default function FilterBar({ handleView }: FilterBarProps): JSX.Element {
       <div className={styles.bubblesContainer}>
         <Dropdown overlay={viewsMenu} placement="bottomLeft" arrow trigger={["click"]}>
           <Button style={{ border: "none", padding: "0", outline: "none" }}>
-            <Bubble text="listing" src="/icons/listing.svg" iconWidth={16} iconHeight={14} />
+            <Bubble text={title} src="/icons/listing.svg" iconWidth={16} iconHeight={14} />
           </Button>
         </Dropdown>
         <Dropdown overlay={viewsMenu} placement="bottomLeft" arrow trigger={["click"]}>
