@@ -21,13 +21,11 @@ const LoginPage: NextPage = () => {
     setIsLoading(true);
     const response = await loginAdminService(email, password);
     if (response?.data) {
-      console.log(response?.data, "is trhe data");
       notify("Login Successful", "success");
       sessionStorage.setItem("auth", JSON.stringify(response?.data));
       push("/dashboard");
       setIsLoading(false);
     } else {
-      console.log(response?.errors);
       notify(response?.errors ? "Incorrect email or password" : "An error occured", "error");
       setIsLoading(false);
     }

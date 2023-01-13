@@ -21,8 +21,8 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
   function handleView(view: string) {
     if (Object.values(DASHBOARD.views).includes(view)) {
       setView(view);
-      router.query.view = view;
-      router.push(router, undefined, { shallow: true });
+      router.query = { view };
+      router.push(router, undefined, { shallow: false });
     }
   }
 
@@ -30,7 +30,7 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
     [DASHBOARD.views.post]: <PostView page={page} total={total} pageSize={pageSize} />,
     [DASHBOARD.views.tag]: <TagView page={page} total={total} pageSize={pageSize} />,
     [DASHBOARD.views.map]: <MapView />,
-    [DASHBOARD.views.updatePostRequest]: <PostUpdateRequestView />,
+    [DASHBOARD.views.updatePostRequest]: <PostUpdateRequestView page={page} total={total} pageSize={pageSize} />,
   };
 
   useEffect(() => {

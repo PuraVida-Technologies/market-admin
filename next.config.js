@@ -18,6 +18,7 @@ const nextConfig = {
       "www.google.com",
       "storage.googleapis.com",
       "ik.imagekit.io",
+      "images.pexels.com",
     ],
   },
   env: {
