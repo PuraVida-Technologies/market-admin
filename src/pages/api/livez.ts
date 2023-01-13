@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { version } from "../../../package.json";
 
-import { apiHealthStatus } from "@/common/constants";
-
+type Data = {
+  version: string;
+};
 /**
  * Resource Handler for `/health`.
  *
@@ -10,9 +12,7 @@ import { apiHealthStatus } from "@/common/constants";
  */
 export default async function resourceHandler(
   _clientRequest: NextApiRequest,
-  clientResponse: NextApiResponse
+  clientResponse: NextApiResponse<Data>
 ): Promise<void> {
-  clientResponse.status(200).json({
-    status: apiHealthStatus.OK,
-  });
+  clientResponse.status(200).json({ version });
 }
