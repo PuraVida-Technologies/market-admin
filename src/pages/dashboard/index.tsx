@@ -21,8 +21,8 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
   function handleView(view: string) {
     if (Object.values(DASHBOARD.views).includes(view)) {
       setView(view);
-      router.query.view = view;
-      router.push(router, undefined, { shallow: true });
+      router.query = { view };
+      router.push(router, undefined, { shallow: false });
     }
   }
 
