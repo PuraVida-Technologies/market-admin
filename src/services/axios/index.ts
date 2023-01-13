@@ -22,9 +22,6 @@ axiosClient.interceptors.request.use(
       user = userData && JSON.parse(userData);
     }
 
-    console.log({ user });
-
-
     let AuthStr;
 
     if (user.auth) {
@@ -48,10 +45,6 @@ axiosClient.interceptors.response.use(
     const res = error.response;
     if (res?.status == 401) {
       window.location.href = "/login";
-      console.log(
-        axiosClient.defaults.headers.common["Authorization"],
-        "was sent"
-      );
     }
     console.error("Looks like there was a problem. Status Code:" + res.status);
     return Promise.reject(error);

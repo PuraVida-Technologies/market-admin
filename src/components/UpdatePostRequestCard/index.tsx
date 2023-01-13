@@ -10,7 +10,6 @@ interface CustomCardProps {
 }
 
 const UpdatePostRequestCard: FC<CustomCardProps> = ({ post, viewDetail }) => {
-  console.log({ post });
   const statusClass = {
     approved: styles.approvedStatus,
     rejected: styles.rejectedStatus,

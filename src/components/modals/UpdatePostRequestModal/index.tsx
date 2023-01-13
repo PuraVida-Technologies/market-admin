@@ -1,4 +1,5 @@
-import { Post, updatePostStatus } from "@/services/post";
+import { Post } from "@/services/post";
+import { updatePostStatus } from "@/services/updatePostsRequests";
 import { Button, Input, Space } from "antd";
 import Image from "next/image";
 import { FC, useState, ChangeEvent, ChangeEventHandler, useEffect } from "react";
@@ -10,6 +11,7 @@ import { isArray } from "lodash";
 
 interface ProductModalProps {
   postDetails: Post;
+  postRequestId: string;
   modalIsOpen: boolean;
   closeModal: () => void;
   customStyles: any;
@@ -17,7 +19,13 @@ interface ProductModalProps {
 
 const { TextArea } = Input;
 
-const UpdatePostRequestModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeModal, customStyles }) => {
+const UpdatePostRequestModal: FC<ProductModalProps> = ({
+  postDetails,
+  postRequestId,
+  modalIsOpen,
+  closeModal,
+  customStyles,
+}) => {
   const [mainImgIndex, setMainImgIndex] = useState<number>(-1);
   const [mainImgUrl, setMainImgUrl] = useState("");
 
@@ -27,7 +35,7 @@ const UpdatePostRequestModal: FC<ProductModalProps> = ({ postDetails, modalIsOpe
     setReason(e.target.value);
   };
   const handleUpdatePostStatus = async (state: string) => {
-    const response = await updatePostStatus(postDetails._id as string, state, reason);
+    const response = await updatePostStatus(postRequestId as string, state, reason);
     if (isArray(response)) {
       notify(response[0].message, "error");
     } else {

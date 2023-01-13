@@ -99,6 +99,7 @@ export default function PostUpdateRequestView(props: IPostProps): JSX.Element {
       </div>
       <UpdatePostRequestModal
         postDetails={(postDetails.postData as Post) || {}}
+        postRequestId={postDetails._id as string}
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         customStyles={customStyles}

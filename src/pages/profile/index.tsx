@@ -32,8 +32,6 @@ const ProfilePage: NextPage = () => {
     setAuth(JSON.parse(user || "{}").auth);
   }, []);
 
-  console.log(auth?.user);
-
   return (
     <MainLayout>
       <div>

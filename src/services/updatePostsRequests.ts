@@ -180,7 +180,6 @@ export async function getSingleUpdatePostsRequest(id: string): Promise<Post> {
       },
     }
   );
-  console.log(response.data);
   return response.data.data.getUpdatePostsRequest as Post;
 }
 
