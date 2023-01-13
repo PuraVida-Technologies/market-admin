@@ -30,7 +30,7 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
     [DASHBOARD.views.post]: <PostView page={page} total={total} pageSize={pageSize} />,
     [DASHBOARD.views.tag]: <TagView page={page} total={total} pageSize={pageSize} />,
     [DASHBOARD.views.map]: <MapView />,
-    [DASHBOARD.views.updatePostRequest]: <PostUpdateRequestView />,
+    [DASHBOARD.views.updatePostRequest]: <PostUpdateRequestView page={page} total={total} pageSize={pageSize} />,
   };
 
   useEffect(() => {
