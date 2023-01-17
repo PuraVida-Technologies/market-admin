@@ -5,9 +5,11 @@ EXPOSE ${PORT}
 
 WORKDIR /app
 COPY package.json yarn.lock ./
-RUN yarn install
 
-COPY . .
 RUN yarn install --frozen-lockfile
 
-CMD ["npm", "start"]
+COPY . .
+
+RUN yarn build
+
+CMD ["yarn", "start"]
