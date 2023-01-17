@@ -4,8 +4,9 @@ ENV PORT=3000
 EXPOSE ${PORT}
 
 WORKDIR /app
-COPY . .
+RUN yarn install
 
+COPY . .
 RUN yarn build
 
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
