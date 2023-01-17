@@ -4,8 +4,10 @@ ENV PORT=3000
 EXPOSE ${PORT}
 
 WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install
+
 COPY . .
+RUN yarn install --frozen-lockfile
 
-RUN yarn build
-
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
