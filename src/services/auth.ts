@@ -1,3 +1,4 @@
+import { baseUrl } from "@/util/apiUrls";
 import axios from "axios";
 
 export type AuthResponse = {
@@ -16,7 +17,7 @@ export async function loginAdminService(
   email: string,
   password: string
 ): Promise<AuthResponse> {
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const response = await axios.post(
     href,

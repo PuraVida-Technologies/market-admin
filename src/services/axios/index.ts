@@ -5,8 +5,8 @@ import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
 
-const baseURL = publicRuntimeConfig.BASE_URL;
-
+const baseURL = publicRuntimeConfig.NEXT_PUBLIC_BASE_URL;
+console.log({ NEXT_PUBLIC_BASE_URL: baseURL })
 // an instance
 const axiosClient = axios.create({
   baseURL,

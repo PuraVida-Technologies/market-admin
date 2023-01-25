@@ -13,7 +13,6 @@ const nextConfig = {
   },
   images: {
     domains: [
-      process.env.BASE_URL,
       "placeimg.com",
       "www.google.com",
       "storage.googleapis.com",
@@ -22,13 +21,13 @@ const nextConfig = {
     ],
   },
   env: {
-    BASE_URL: process.env.BASE_URL,
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
   publicRuntimeConfig: {
-    BASE_URL: process.env.BASE_URL,
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
   serverRuntimeConfig: {
-    BASE_URL: process.env.BASE_URL,
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
 };
 

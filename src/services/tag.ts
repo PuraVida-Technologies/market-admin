@@ -1,3 +1,4 @@
+import { baseUrl } from "@/util/apiUrls";
 import axios from "axios";
 
 export type TagNameObj = {
@@ -62,7 +63,7 @@ export async function tagsAdminService(
   options: GetTagssAdminOptions
 ): Promise<TagsResponse> {
   const { limit, page } = options;
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -114,7 +115,7 @@ export async function createAdminTag(
   options: CreateAdminTagArgs
 ): Promise<AdminTagResponse> {
   const { names, icon } = options;
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -154,7 +155,7 @@ export async function approveOrRejectAdminTag(
   options: ApproveOrRejectAdminTagArgs
 ): Promise<AdminTagResponse> {
   const { id, status, reason, names, icon } = options;
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -195,7 +196,7 @@ export async function approveOrRejectAdminTag(
 }
 
 export async function getTagDetails(id: string): Promise<Tag> {
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -231,7 +232,7 @@ export async function updateTagStatus(
   status: string,
   reason?: string
 ): Promise<Tag | { message: string }[]> {
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);

@@ -1,2 +1,1 @@
-const baseUrl = process.env.BASE_URL;
-export const userUrl = baseUrl;
+export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";

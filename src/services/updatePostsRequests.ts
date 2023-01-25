@@ -1,3 +1,4 @@
+import { baseUrl } from "@/util/apiUrls";
 import axios from "axios";
 
 type AdminPostTag = {
@@ -59,7 +60,7 @@ export async function getUpdatePostsRequests(
   options: GetPostsAdminOptions
 ): Promise<PostsResponse> {
   const { limit, page } = options;
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -133,7 +134,7 @@ export async function getUpdatePostsRequests(
 }
 
 export async function getSingleUpdatePostsRequest(id: string): Promise<Post> {
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -188,7 +189,7 @@ export async function updatePostStatus(
   status: string,
   reason?: string
 ): Promise<Post | { message: string }[]> {
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl;
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);

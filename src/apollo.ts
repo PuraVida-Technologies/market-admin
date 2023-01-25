@@ -1,7 +1,8 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
+import { baseUrl } from "./util/apiUrls";
 
-const link = createUploadLink({ uri: process.env.BASE_URL });
+const link = createUploadLink({ uri: baseUrl });
 
 export const client = new ApolloClient({
   link,
