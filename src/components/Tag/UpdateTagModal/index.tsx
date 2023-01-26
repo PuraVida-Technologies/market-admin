@@ -3,8 +3,7 @@ import { Tag, TagNameObj, approveOrRejectAdminTag } from "@/services/tag";
 import { Button, Modal, Input, Radio, Space } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { useMutation } from "@apollo/client";
-import { uploadFileMutation } from "@/services/upload";
+import { uploadFile } from "@/services/upload";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 import type { UploadChangeParam } from "antd/es/upload";
@@ -74,15 +73,12 @@ export default function UpdateTagModal({
     }
     return isJpgOrPng && isLt2M;
   };
-  const [uploadFile] = useMutation(uploadFileMutation);
-  const onDrop = useCallback(
-    (file: File) => {
-      uploadFile({ variables: { file } }).then((res) => {
-        setImageUrl(res?.data?.uploadFile?.url);
-      });
-    },
-    [uploadFile]
-  );
+
+  const onDrop = useCallback((file: File) => {
+    uploadFile(file).then((res) => {
+      setImageUrl(res.url);
+    });
+  }, []);
 
   const handleOk = () => {
     setIsLoading(true);

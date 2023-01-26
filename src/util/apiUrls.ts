@@ -1,2 +1,5 @@
-const baseUrl = process.env.BASE_URL;
-export const userUrl = baseUrl;
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
+
+export const baseUrl = publicRuntimeConfig.NEXT_PUBLIC_BASE_URL;

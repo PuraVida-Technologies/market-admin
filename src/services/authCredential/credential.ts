@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { userUrl } from "../../util/apiUrls";
+import { baseUrl } from "../../util/apiUrls";
 import axiosClient from "../axios";
 
 export const userHeaders = axiosClient.defaults.headers;
 
-export const userBaseUrl = userUrl;
+export const userBaseUrl = baseUrl + "/graphql";

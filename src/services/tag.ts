@@ -1,3 +1,4 @@
+import { baseUrl } from "@/util/apiUrls";
 import axios from "axios";
 
 export type TagNameObj = {
@@ -38,6 +39,7 @@ type AdminTagResponse = {
 type GetTagssAdminOptions = {
   limit: number;
   page: number;
+  order: string;
 };
 
 type AdminTagName = {
@@ -61,8 +63,8 @@ type ApproveOrRejectAdminTagArgs = {
 export async function tagsAdminService(
   options: GetTagssAdminOptions
 ): Promise<TagsResponse> {
-  const { limit, page } = options;
-  const href = process.env.BASE_URL || "";
+  const { limit, page, order } = options;
+  const href = baseUrl + "/graphql";
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -70,8 +72,8 @@ export async function tagsAdminService(
   const response = await axios.post(
     href,
     {
-      query: `query($limit: Float, $page: Float){
-        getAdminTags(getAdminTagsInput: { limit: $limit, page: $page }){   
+      query: `query($limit: Float, $page: Float, $order: String){
+        getAdminTags(getAdminTagsInput: { limit: $limit, page: $page, order: $order, sortBy: "createdAt" }){   
           data {
             _id
             names {
@@ -97,6 +99,7 @@ export async function tagsAdminService(
       variables: {
         limit,
         page,
+        order,
       },
     },
     {
@@ -114,7 +117,7 @@ export async function createAdminTag(
   options: CreateAdminTagArgs
 ): Promise<AdminTagResponse> {
   const { names, icon } = options;
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl + "/graphql";
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -154,7 +157,7 @@ export async function approveOrRejectAdminTag(
   options: ApproveOrRejectAdminTagArgs
 ): Promise<AdminTagResponse> {
   const { id, status, reason, names, icon } = options;
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl + "/graphql";
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -195,7 +198,7 @@ export async function approveOrRejectAdminTag(
 }
 
 export async function getTagDetails(id: string): Promise<Tag> {
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl + "/graphql";
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -231,7 +234,7 @@ export async function updateTagStatus(
   status: string,
   reason?: string
 ): Promise<Tag | { message: string }[]> {
-  const href = process.env.BASE_URL || "";
+  const href = baseUrl + "/graphql";
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
