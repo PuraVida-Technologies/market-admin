@@ -23,7 +23,7 @@ const CustomCard: FC<CustomCardProps> = ({ post, viewDetail }) => {
     <Card
       hoverable
       className="custom-card"
-      style={{ width: "100%", padding: "0rem", borderRadius: "1rem", overflow: "hidden" }}
+      style={{ width: "100%", minHeight: "321px", padding: "0rem", borderRadius: "1rem", overflow: "hidden" }}
       cover={
         <img
           alt="post"

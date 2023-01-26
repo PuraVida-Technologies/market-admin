@@ -8,8 +8,7 @@ import { Button, Modal, Input } from "antd";
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import TagActionsColumn from "../TagActionsColumn";
-import { useMutation } from "@apollo/client";
-import { uploadFileMutation } from "@/services/upload";
+import { uploadFile } from "@/services/upload";
 
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
@@ -21,10 +20,11 @@ interface ITagProps {
   pageSize: number;
   page: number;
   total: number;
+  order: string;
 }
 
 export default function TagView(props: ITagProps): JSX.Element {
-  const { page, pageSize, total } = props;
+  const { page, pageSize, total, order } = props;
 
   const [selectedTag, setSelectedTag] = useState(null);
   const [isUpdateTagModalOpen, setIsUpdateTagModalOpen] = useState(false);
@@ -66,15 +66,12 @@ export default function TagView(props: ITagProps): JSX.Element {
     }
     return isJpgOrPng && isLt2M;
   };
-  const [uploadFile] = useMutation(uploadFileMutation);
-  const onDrop = useCallback(
-    (file: File) => {
-      uploadFile({ variables: { file } }).then((res) => {
-        setImageUrl(res?.data?.uploadFile?.url);
-      });
-    },
-    [uploadFile]
-  );
+
+  const onDrop = useCallback((file: File) => {
+    uploadFile(file).then((res) => {
+      setImageUrl(res.url);
+    });
+  }, []);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -111,11 +108,11 @@ export default function TagView(props: ITagProps): JSX.Element {
 
   useEffect(() => {
     if (!isModalOpen) {
-      tagsAdminService({ limit: pageSize, page }).then((response) => {
+      tagsAdminService({ limit: pageSize, page, order }).then((response) => {
         setTags(response);
       });
     }
-  }, [pageSize, page, router, isModalOpen, isUpdateTagModalOpen]);
+  }, [pageSize, page, router, isModalOpen, isUpdateTagModalOpen, order]);
 
   const handleOnChange = (page: TablePaginationConfig) => {
     const { pageSize, current } = page;

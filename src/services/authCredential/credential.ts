@@ -4,4 +4,4 @@ import axiosClient from "../axios";
 
 export const userHeaders = axiosClient.defaults.headers;
 
-export const userBaseUrl = baseUrl;
+export const userBaseUrl = baseUrl + "/graphql";

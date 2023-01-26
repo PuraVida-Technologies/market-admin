@@ -54,13 +54,14 @@ export type PostsResponse = {
 type GetPostsAdminOptions = {
   limit: number;
   page: number;
+  order: string;
 };
 
 export async function getUpdatePostsRequests(
   options: GetPostsAdminOptions
 ): Promise<PostsResponse> {
-  const { limit, page } = options;
-  const href = baseUrl;
+  const { limit, page, order } = options;
+  const href = baseUrl + "/graphql";
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -68,8 +69,8 @@ export async function getUpdatePostsRequests(
   const response = await axios.post(
     href,
     {
-      query: `query($limit: Float, $page: Float){
-        getUpdatePostsRequests(getRequestUpdatePostsInput: { limit: $limit, page: $page }) {   
+      query: `query($limit: Float, $page: Float, $order: String){
+        getUpdatePostsRequests(getRequestUpdatePostsInput: { limit: $limit, page: $page, order: $order, sortBy: "createdAt" }) {   
             data {
               _id,
               postId,
@@ -108,6 +109,7 @@ export async function getUpdatePostsRequests(
       variables: {
         limit,
         page,
+        order,
       },
     },
     {
@@ -134,7 +136,7 @@ export async function getUpdatePostsRequests(
 }
 
 export async function getSingleUpdatePostsRequest(id: string): Promise<Post> {
-  const href = baseUrl;
+  const href = baseUrl + "/graphql";
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
@@ -189,7 +191,7 @@ export async function updatePostStatus(
   status: string,
   reason?: string
 ): Promise<Post | { message: string }[]> {
-  const href = baseUrl;
+  const href = baseUrl + "/graphql";
 
   const userData = sessionStorage.getItem("auth");
   const user = userData && JSON.parse(userData);

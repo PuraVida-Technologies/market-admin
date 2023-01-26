@@ -17,7 +17,7 @@ export async function loginAdminService(
   email: string,
   password: string
 ): Promise<AuthResponse> {
-  const href = baseUrl;
+  const href = baseUrl + "/graphql";
 
   const response = await axios.post(
     href,

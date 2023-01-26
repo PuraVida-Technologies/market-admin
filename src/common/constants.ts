@@ -19,4 +19,8 @@ export const DASHBOARD = {
     map: "map-view",
     updatePostRequest: "update-post-request-view",
   },
+  sortings: {
+    ascending: "asc",
+    descending: "desc",
+  },
 };

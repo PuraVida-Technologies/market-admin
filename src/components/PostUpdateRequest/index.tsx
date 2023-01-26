@@ -17,10 +17,11 @@ interface IPostProps {
   pageSize: number;
   page: number;
   total: number;
+  order: string;
 }
 
 export default function PostUpdateRequestView(props: IPostProps): JSX.Element {
-  const { page, pageSize, total } = props;
+  const { page, pageSize, total, order } = props;
   const router: NextRouter = useRouter();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [postDetails, setPostDetails] = useState<Post>({});
@@ -56,11 +57,11 @@ export default function PostUpdateRequestView(props: IPostProps): JSX.Element {
 
   useEffect(() => {
     if (router.query.isModalOpen !== "true") {
-      getUpdatePostsRequests({ limit: pageSize, page }).then((data) => {
+      getUpdatePostsRequests({ limit: pageSize, page, order }).then((data) => {
         setPosts(data);
       });
     }
-  }, [pageSize, page, router]);
+  }, [pageSize, page, router, order]);
 
   function onChangePagination(page: number, pageSize: number) {
     if (page) {
