@@ -14,6 +14,7 @@ type FilterBarProps = {
 
 export default function FilterBar({ handleView, handleSort }: FilterBarProps): JSX.Element {
   const [title, setTitle] = useState("listing");
+
   const router = useRouter();
   useEffect(() => {
     if (router.query.view && typeof router.query.view === "string") {
@@ -34,11 +35,11 @@ export default function FilterBar({ handleView, handleSort }: FilterBarProps): J
           label: <span>Tags</span>,
           onClick: () => handleView(DASHBOARD.views.tag),
         },
-        {
-          key: "3",
-          label: <span>Map</span>,
-          onClick: () => handleView(DASHBOARD.views.map),
-        },
+        // {
+        //   key: "3",
+        //   label: <span>Map</span>,
+        //   onClick: () => handleView(DASHBOARD.views.map),
+        // },
         {
           key: "4",
           label: <span>Request Post Update</span>,
@@ -76,7 +77,7 @@ export default function FilterBar({ handleView, handleSort }: FilterBarProps): J
         </Dropdown>
         <Dropdown overlay={sortingMenu} placement="bottomLeft" arrow trigger={["click"]}>
           <Button style={{ border: "none", padding: "0", outline: "none" }}>
-            <Bubble text="sorting" src="/icons/sorting.svg" iconWidth={24} iconHeight={15} />
+            <Bubble text="Sorting" src="/icons/sorting.svg" iconWidth={24} iconHeight={15} />
           </Button>
         </Dropdown>
       </div>

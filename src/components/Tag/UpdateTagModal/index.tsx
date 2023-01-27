@@ -1,13 +1,13 @@
 import "antd/dist/antd.css";
 import { Tag, TagNameObj, approveOrRejectAdminTag } from "@/services/tag";
 import { Button, Modal, Input, Radio, Space } from "antd";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { uploadFile } from "@/services/upload";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
-import type { UploadChangeParam } from "antd/es/upload";
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+// import { uploadFile } from "@/services/upload";
+// import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+// import { message, Upload } from "antd";
+// import type { UploadChangeParam } from "antd/es/upload";
+// import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import type { RadioChangeEvent } from "antd";
 
 interface UpdateTagModalProps {
@@ -24,7 +24,7 @@ export default function UpdateTagModal({
   setSelectedTag,
 }: UpdateTagModalProps): JSX.Element {
   const [loading, setIsLoading] = useState(false);
-  const [isImageUploading, setIsImageUploading] = useState(false);
+  // const [isImageUploading, setIsImageUploading] = useState(false);
   const [englishName, setEnglishName] = useState("");
   const [spanishName, setSpanishName] = useState("");
   const [imageUrl, setImageUrl] = useState<string>();
@@ -46,15 +46,15 @@ export default function UpdateTagModal({
     }
   }, [selectedTag]);
 
-  const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
-    if (info.file.status === "uploading") {
-      setIsImageUploading(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      onDrop(info.file.originFileObj as File);
-    }
-  };
+  // const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
+  //   if (info.file.status === "uploading") {
+  //     setIsImageUploading(true);
+  //     return;
+  //   }
+  //   if (info.file.status === "done") {
+  //     onDrop(info.file.originFileObj as File);
+  //   }
+  // };
 
   useEffect(() => {
     if ((englishName || spanishName) && tagStatus) {
@@ -62,23 +62,23 @@ export default function UpdateTagModal({
     }
   }, [englishName, spanishName, tagStatus]);
 
-  const beforeUpload = (file: RcFile) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-    if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error("Image must smaller than 2MB!");
-    }
-    return isJpgOrPng && isLt2M;
-  };
+  // const beforeUpload = (file: RcFile) => {
+  //   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  //   if (!isJpgOrPng) {
+  //     message.error("You can only upload JPG/PNG file!");
+  //   }
+  //   const isLt2M = file.size / 1024 / 1024 < 2;
+  //   if (!isLt2M) {
+  //     message.error("Image must smaller than 2MB!");
+  //   }
+  //   return isJpgOrPng && isLt2M;
+  // };
 
-  const onDrop = useCallback((file: File) => {
-    uploadFile(file).then((res) => {
-      setImageUrl(res.url);
-    });
-  }, []);
+  // const onDrop = useCallback((file: File) => {
+  //   uploadFile(file).then((res) => {
+  //     setImageUrl(res.url);
+  //   });
+  // }, []);
 
   const handleOk = () => {
     setIsLoading(true);
@@ -101,7 +101,7 @@ export default function UpdateTagModal({
 
   const resetThenClose = () => {
     setIsLoading(false);
-    setIsImageUploading(false);
+    // setIsImageUploading(false);
     setEnglishName("");
     setSpanishName("");
     setImageUrl("");
@@ -114,12 +114,12 @@ export default function UpdateTagModal({
     resetThenClose();
   };
 
-  const uploadButton = (
-    <div>
-      {isImageUploading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>{isImageUploading ? "Uploading" : "Upload"}</div>
-    </div>
-  );
+  // const uploadButton = (
+  //   <div>
+  //     {isImageUploading ? <LoadingOutlined /> : <PlusOutlined />}
+  //     <div style={{ marginTop: 8 }}>{isImageUploading ? "Uploading" : "Upload"}</div>
+  //   </div>
+  // );
 
   return (
     <Modal
@@ -144,7 +144,7 @@ export default function UpdateTagModal({
         <p>Spanish Name:</p>
         <Input value={spanishName} onChange={(e) => setSpanishName(e.target.value)} />
       </div>
-      <div className={styles.inputContainer}>
+      {/* <div className={styles.inputContainer}>
         <p>Tag Icon:</p>
         <Upload
           name="tag"
@@ -156,7 +156,7 @@ export default function UpdateTagModal({
         >
           {imageUrl ? <img src={imageUrl} alt="tag" style={{ width: "100%" }} /> : uploadButton}
         </Upload>
-      </div>
+      </div> */}
       {selectedTag?.status === "pending" && (
         <div className={styles.inputContainer}>
           <p>Status:</p>
