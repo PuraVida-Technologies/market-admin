@@ -19,11 +19,11 @@ const { TextArea } = Input;
 
 const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeModal, customStyles }) => {
   const [mainImgIndex, setMainImgIndex] = useState<number>(-1);
-  const [mainImgUrl, setMainImgUrl] = useState("");
+  const [mainImgUrl, setMainImgUrl] = useState(postDetails.mainImageUrl);
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const [reason, setReason] = useState("");
-  const handlereasonChange: ChangeEventHandler<HTMLTextAreaElement> = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleReasonChange: ChangeEventHandler<HTMLTextAreaElement> = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReason(e.target.value);
   };
   const handleUpdatePostStatus = async (state: string) => {
@@ -46,6 +46,14 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
     setMainImgUrl(url);
   }, [mainImgIndex]);
 
+  useEffect(() => {
+    if (postDetails.mainImageUrl) {
+      setMainImgUrl(postDetails.mainImageUrl);
+    }
+  }, [postDetails]);
+
+  console.log(mainImgUrl);
+
   return (
     <div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
@@ -66,14 +74,7 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
                     className="custom-img custom-rounded-1 custom-cursor"
                     onClick={() => setMainImgIndex(index)}
                   >
-                    <Image
-                      alt=""
-                      className=" object-cover rounded-t-xl"
-                      src={url}
-                      width="100%"
-                      height="100%"
-                      layout="fill"
-                    />
+                    <Image alt="" className=" object-cover rounded-t-xl" src={url} layout="fill" />
                   </div>
                 ))}
               </div>
@@ -99,7 +100,7 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
 
               <div className={styles.inputContainer}>
                 Reason (optional) :
-                <TextArea onChange={handlereasonChange} rows={4} />
+                <TextArea onChange={handleReasonChange} rows={4} />
               </div>
               <div>
                 <Button

@@ -5,6 +5,7 @@ import styles from "../TopMenu/styles.module.scss";
 import React, { FC } from "react";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
+import { greeting } from "@/functions";
 
 interface SideBarProps {
   open: boolean;
@@ -24,7 +25,7 @@ const SideBar: FC<SideBarProps> = ({ open, onClick }) => {
         <div className="" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Link href="/dashboard">
             <div className={styles.logoImg}>
-              <Image src="/icons/pvb-logo.svg" alt="PVB Logo" width={"100%"} height={"100%"} />
+              <Image src="/icons/logo.png" alt="PuraVida" width={"100%"} height={"100%"} />
             </div>
           </Link>
           <div onClick={onClick}>
@@ -38,7 +39,7 @@ const SideBar: FC<SideBarProps> = ({ open, onClick }) => {
             </div>
             <div className={styles.text}>
               <p>Admin</p>
-              <p>Good Morning!</p>
+              {greeting()}
             </div>
           </div>
           <button onClick={logout} className={styles.mobLogout}>

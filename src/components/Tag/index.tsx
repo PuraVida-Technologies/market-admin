@@ -5,15 +5,15 @@ import { createAdminTag, Tag, tagsAdminService, TagsResponse } from "@/services/
 import { NextRouter, useRouter } from "next/router";
 import { Col, Row, Table, Tag as TagComponent } from "antd";
 import { Button, Modal, Input } from "antd";
-import React, { ReactNode, useCallback, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import TagActionsColumn from "../TagActionsColumn";
-import { uploadFile } from "@/services/upload";
+// import { uploadFile } from "@/services/upload";
 
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
-import type { UploadChangeParam } from "antd/es/upload";
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+// import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+// import { message } from "antd";
+// import type { UploadChangeParam } from "antd/es/upload";
+// import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import UpdateTagModal from "./UpdateTagModal";
 
 interface ITagProps {
@@ -29,21 +29,21 @@ export default function TagView(props: ITagProps): JSX.Element {
   const [selectedTag, setSelectedTag] = useState(null);
   const [isUpdateTagModalOpen, setIsUpdateTagModalOpen] = useState(false);
   const [loading, setIsLoading] = useState(false);
-  const [isImageUploading, setIsImageUploading] = useState(false);
+  // const [isImageUploading, setIsImageUploading] = useState(false);
   const [englishName, setEnglishName] = useState("");
   const [spanishName, setSpanishName] = useState("");
   const [imageUrl, setImageUrl] = useState<string>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
-  const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
-    if (info.file.status === "uploading") {
-      setIsImageUploading(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      onDrop(info.file.originFileObj as File);
-    }
-  };
+  // const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
+  //   if (info.file.status === "uploading") {
+  //     setIsImageUploading(true);
+  //     return;
+  //   }
+  //   if (info.file.status === "done") {
+  //     onDrop(info.file.originFileObj as File);
+  //   }
+  // };
 
   useEffect(() => {
     if (selectedTag) setIsUpdateTagModalOpen(true);
@@ -55,23 +55,23 @@ export default function TagView(props: ITagProps): JSX.Element {
     }
   }, [englishName, spanishName, imageUrl]);
 
-  const beforeUpload = (file: RcFile) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-    if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error("Image must smaller than 2MB!");
-    }
-    return isJpgOrPng && isLt2M;
-  };
+  // const beforeUpload = (file: RcFile) => {
+  //   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  //   if (!isJpgOrPng) {
+  //     message.error("You can only upload JPG/PNG file!");
+  //   }
+  //   const isLt2M = file.size / 1024 / 1024 < 2;
+  //   if (!isLt2M) {
+  //     message.error("Image must smaller than 2MB!");
+  //   }
+  //   return isJpgOrPng && isLt2M;
+  // };
 
-  const onDrop = useCallback((file: File) => {
-    uploadFile(file).then((res) => {
-      setImageUrl(res.url);
-    });
-  }, []);
+  // const onDrop = useCallback((file: File) => {
+  //   uploadFile(file).then((res) => {
+  //     setImageUrl(res.url);
+  //   });
+  // }, []);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -92,7 +92,7 @@ export default function TagView(props: ITagProps): JSX.Element {
 
   const resetThenClose = () => {
     setIsLoading(false);
-    setIsImageUploading(false);
+    // setIsImageUploading(false);
     setEnglishName("");
     setSpanishName("");
     setImageUrl("");
@@ -124,12 +124,12 @@ export default function TagView(props: ITagProps): JSX.Element {
 
     router.push(router);
   };
-  const uploadButton = (
-    <div>
-      {isImageUploading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>{isImageUploading ? "Uploading" : "Upload"}</div>
-    </div>
-  );
+  // const uploadButton = (
+  //   <div>
+  //     {isImageUploading ? <LoadingOutlined /> : <PlusOutlined />}
+  //     <div style={{ marginTop: 8 }}>{isImageUploading ? "Uploading" : "Upload"}</div>
+  //   </div>
+  // );
 
   const statusClass: { [key: string]: string } = {
     approved: styles.approvedStatus,
@@ -207,7 +207,7 @@ export default function TagView(props: ITagProps): JSX.Element {
           <p>Spanish Name:</p>
           <Input value={spanishName} onChange={(e) => setSpanishName(e.target.value)} />
         </div>
-        <div className={styles.inputContainer}>
+        {/* <div className={styles.inputContainer}>
           <p>Tag Icon:</p>
           <Upload
             name="tag"
@@ -219,7 +219,7 @@ export default function TagView(props: ITagProps): JSX.Element {
           >
             {imageUrl ? <img src={imageUrl} alt="tag" style={{ width: "100%" }} /> : uploadButton}
           </Upload>
-        </div>
+        </div> */}
       </Modal>
       <Row gutter={[16, 16]}>
         <Col xs={24}>
