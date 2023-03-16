@@ -66,7 +66,7 @@ export async function tagsAdminService(
   const { limit, page, order } = options;
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -119,7 +119,7 @@ export async function createAdminTag(
   const { names, icon } = options;
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -159,7 +159,7 @@ export async function approveOrRejectAdminTag(
   const { id, status, reason, names, icon } = options;
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -200,7 +200,7 @@ export async function approveOrRejectAdminTag(
 export async function getTagDetails(id: string): Promise<Tag> {
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -236,7 +236,7 @@ export async function updateTagStatus(
 ): Promise<Tag | { message: string }[]> {
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Post } from "@/services/post";
 import { updatePostStatus } from "@/services/updatePostsRequests";
 import { Button, Input, Space } from "antd";
@@ -53,6 +54,7 @@ const UpdatePostRequestModal: FC<ProductModalProps> = ({
       }
     }
     setMainImgUrl(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainImgIndex]);
 
   return (

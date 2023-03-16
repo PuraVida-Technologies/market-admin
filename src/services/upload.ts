@@ -4,7 +4,7 @@ import { baseUrl } from "@/util/apiUrls";
 export const uploadFile = (
   file: File
 ): Promise<{ filename: string; url: string }> => {
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const href = baseUrl + "/media/single";

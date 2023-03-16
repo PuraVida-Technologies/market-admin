@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 interface ChangePasswordModalProps {
   modalIsOpen: boolean;
   closeModal: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   customStyles: any;
 }
 const ChangePasswordModal: FC<ChangePasswordModalProps> = ({ modalIsOpen, closeModal, customStyles }) => {

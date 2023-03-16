@@ -28,7 +28,7 @@ const ProfilePage: NextPage = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
   useEffect(() => {
-    const user = sessionStorage.getItem("auth");
+    const user = localStorage.getItem("auth");
     setAuth(JSON.parse(user || "{}").auth);
   }, []);
 

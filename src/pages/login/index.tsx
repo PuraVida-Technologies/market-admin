@@ -22,7 +22,7 @@ const LoginPage: NextPage = () => {
     const response = await loginAdminService(email, password);
     if (response?.data) {
       notify("Login Successful", "success");
-      sessionStorage.setItem("auth", JSON.stringify(response?.data));
+      localStorage.setItem("auth", JSON.stringify(response?.data));
       push("/dashboard");
       setIsLoading(false);
     } else {

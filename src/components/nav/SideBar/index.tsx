@@ -16,7 +16,7 @@ const SideBar: FC<SideBarProps> = ({ open, onClick }) => {
   const router = useRouter();
 
   const logout = () => {
-    sessionStorage.removeItem("auth");
+    localStorage.removeItem("auth");
     router.push("/login");
   };
   return (

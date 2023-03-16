@@ -18,6 +18,7 @@ export const DASHBOARD = {
     tag: "tag-view",
     map: "map-view",
     updatePostRequest: "update-post-request-view",
+    postReports: "post-reports-view-view",
   },
   sortings: {
     ascending: "asc",
