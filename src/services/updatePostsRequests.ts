@@ -63,7 +63,7 @@ export async function getUpdatePostsRequests(
   const { limit, page, order } = options;
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -138,7 +138,7 @@ export async function getUpdatePostsRequests(
 export async function getSingleUpdatePostsRequest(id: string): Promise<Post> {
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -193,7 +193,7 @@ export async function updatePostStatus(
 ): Promise<Post | { message: string }[]> {
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(

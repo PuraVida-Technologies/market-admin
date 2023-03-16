@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Post, updatePostStatus } from "@/services/post";
 import { Button, Input, Space } from "antd";
 import Image from "next/image";
@@ -44,6 +45,7 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
     }
 
     setMainImgUrl(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainImgIndex]);
 
   useEffect(() => {

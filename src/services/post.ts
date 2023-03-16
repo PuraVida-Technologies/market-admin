@@ -25,6 +25,26 @@ export type PostsResponse = {
   errors?: string;
 };
 
+export type PostReport = {
+  _id?: string;
+  post?: Post;
+  createdAt?: string;
+  reason: string;
+  userId: string;
+};
+
+export type PostReportsResponse = {
+  data?: PostReport[];
+  pagination?: {
+    total: number;
+    numberOfPages: number;
+    page: number;
+    count: number;
+    limit: number;
+  };
+  errors?: string;
+};
+
 type GetPostsAdminOptions = {
   limit: number;
   page: number;
@@ -37,7 +57,7 @@ export async function postAdminService(
   const { limit, page, order } = options;
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -84,7 +104,7 @@ export async function postAdminService(
 export async function getPostDetails(id: string): Promise<Post> {
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -124,7 +144,7 @@ export async function updatePostStatus(
 ): Promise<Post | { message: string }[]> {
   const href = baseUrl + "/graphql";
 
-  const userData = sessionStorage.getItem("auth");
+  const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
   const response = await axios.post(
@@ -157,4 +177,114 @@ export async function updatePostStatus(
     return response.data.errors;
   }
   return response.data.data.approveOrDeclinePost as Post;
+}
+
+export async function getPostReportsAdminService(
+  options: GetPostsAdminOptions
+): Promise<PostReportsResponse> {
+  const { limit, page, order } = options;
+  const href = baseUrl + "/graphql";
+
+  const userData = localStorage.getItem("auth");
+  const user = userData && JSON.parse(userData);
+
+  const response = await axios.post(
+    href,
+    {
+      query: `query($limit: Float, $page: Float, $order: String){
+        getAdminReportedPosts(getAdminReportedPostInput: { limit: $limit, page: $page, order: $order, sortBy: "createdAt"}) {   
+          data{
+            post{
+              _id
+              name
+            }
+            _id
+            createdAt
+            reason
+            userId
+          },
+            pagination {
+                total,
+                numberOfPages,
+                page,
+                count,
+                limit,
+            }
+        }
+    }`,
+      variables: {
+        limit,
+        page,
+        order,
+      },
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + user?.auth?.token,
+      },
+    }
+  );
+
+  return response.data?.data?.getAdminReportedPosts as PostReportsResponse;
+}
+
+export async function ignorePostReportAdminService(
+  reportId: string
+): Promise<PostReport> {
+  const href = baseUrl + "/graphql";
+
+  const userData = localStorage.getItem("auth");
+  const user = userData && JSON.parse(userData);
+
+  const response = await axios.post(
+    href,
+    {
+      query: `mutation($reportId: String!){
+        ignorePostReport(id: $reportId) {   
+          _id
+        }
+    }`,
+      variables: {
+        reportId,
+      },
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + user?.auth?.token,
+      },
+    }
+  );
+
+  return response.data?.data?.ignorePostReport as PostReport;
+}
+
+export async function removePostAdminService(postId: string): Promise<Post> {
+  const href = baseUrl + "/graphql";
+
+  const userData = localStorage.getItem("auth");
+  const user = userData && JSON.parse(userData);
+
+  const response = await axios.post(
+    href,
+    {
+      query: `mutation($postId: String!){
+        removeAdminPost(id: $postId) {   
+          _id
+        }
+    }`,
+      variables: {
+        postId,
+      },
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + user?.auth?.token,
+      },
+    }
+  );
+
+  return response.data?.data?.removeAdminPost as Post;
 }

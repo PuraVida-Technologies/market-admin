@@ -14,7 +14,7 @@ const Dropdown: FC<DropdownProps> = ({ mode }) => {
   const router = useRouter();
 
   const logout = () => {
-    sessionStorage.removeItem("auth");
+    localStorage.removeItem("auth");
     router.push("/login");
   };
   return (

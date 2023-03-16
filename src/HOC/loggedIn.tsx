@@ -15,7 +15,7 @@ const loggedIn = (WrappedComponent: any) => {
     if (isClient) {
       const Router = useRouter();
 
-      const user = sessionStorage.getItem("auth");
+      const user = localStorage.getItem("auth");
 
       if (user) {
         Router.replace("/dashboard");

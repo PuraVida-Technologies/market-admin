@@ -16,7 +16,7 @@ axiosClient.interceptors.request.use(
     let user;
 
     if (typeof window !== "undefined") {
-      const userData = sessionStorage.getItem("auth");
+      const userData = localStorage.getItem("auth");
       user = userData && JSON.parse(userData);
     }
 

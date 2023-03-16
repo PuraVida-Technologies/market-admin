@@ -11,7 +11,7 @@ const withAuth = (WrappedComponent) => {
     if (typeof window !== "undefined") {
       const Router = useRouter();
 
-      const user = sessionStorage.getItem("auth");
+      const user = localStorage.getItem("auth");
 
       if (!user) {
         Router.replace("/login");
