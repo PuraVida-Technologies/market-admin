@@ -11,6 +11,7 @@ export type Post = {
   imagesUrls?: string[];
   mainImageUrl?: string;
   slug?: string;
+  reason?: string;
 };
 
 export type PostsResponse = {
@@ -120,6 +121,7 @@ export async function getPostDetails(id: string): Promise<Post> {
                 createdAt,
                 imagesUrls,
                 mainImageUrl,
+                reason
       }
     }`,
       variables: {

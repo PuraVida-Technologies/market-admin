@@ -9,7 +9,7 @@
     "build": "yarn clean && yarn clean:dist && yarn build:only",
     "build:only": "next build",
     "dev": "next dev",
-    "fix": "eslint --fix ./src",
+    "lint:fix": "eslint --fix ./src",
     "lint": "next lint",
     "prepare": "husky install",
     "start": "next start -p 3000"

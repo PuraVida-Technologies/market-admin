@@ -23,7 +23,7 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
   const [mainImgUrl, setMainImgUrl] = useState(postDetails.mainImageUrl);
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-  const [reason, setReason] = useState("");
+  const [reason, setReason] = useState<string>("");
   const handleReasonChange: ChangeEventHandler<HTMLTextAreaElement> = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReason(e.target.value);
   };
@@ -52,9 +52,11 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
     if (postDetails.mainImageUrl) {
       setMainImgUrl(postDetails.mainImageUrl);
     }
-  }, [postDetails]);
 
-  console.log(mainImgUrl);
+    if (postDetails.reason) {
+      setReason(postDetails.reason as string);
+    }
+  }, [postDetails]);
 
   return (
     <div>
@@ -102,33 +104,40 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
 
               <div className={styles.inputContainer}>
                 Reason (optional) :
-                <TextArea onChange={handleReasonChange} rows={4} />
+                <TextArea
+                  onChange={handleReasonChange}
+                  rows={4}
+                  value={reason}
+                  disabled={postDetails.status !== "PENDING"}
+                />
               </div>
-              <div>
-                <Button
-                  onClick={() => handleUpdatePostStatus("approved")}
-                  type="primary"
-                  shape="round"
-                  size={"middle"}
-                  style={{
-                    background: "#3653FE",
-                    color: "#ffffff",
-                    border: "none",
-                    outline: "none",
-                    marginTop: "1rem",
-                  }}
-                >
-                  Accept
-                </Button>
-                <Button
-                  onClick={() => handleUpdatePostStatus("rejected")}
-                  shape="round"
-                  danger
-                  style={{ marginLeft: ".5rem" }}
-                >
-                  Decline
-                </Button>
-              </div>
+              {postDetails.status === "PENDING" ? (
+                <div>
+                  <Button
+                    onClick={() => handleUpdatePostStatus("approved")}
+                    type="primary"
+                    shape="round"
+                    size={"middle"}
+                    style={{
+                      background: "#3653FE",
+                      color: "#ffffff",
+                      border: "none",
+                      outline: "none",
+                      marginTop: "1rem",
+                    }}
+                  >
+                    Accept
+                  </Button>
+                  <Button
+                    onClick={() => handleUpdatePostStatus("rejected")}
+                    shape="round"
+                    danger
+                    style={{ marginLeft: ".5rem" }}
+                  >
+                    Decline
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </div>
         </Space>
