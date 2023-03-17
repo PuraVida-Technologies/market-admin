@@ -74,9 +74,9 @@ export default function PostReportsView(props: IPostReportsProps): JSX.Element {
       render: (post): ReactNode => {
         const postUrl = `dashboard?id=${post._id}&isModalOpen=true`;
         return (
-          <>
-            <a href={postUrl}>{post.name}</a>
-          </>
+          <a href={postUrl} target="_blank" rel="noreferrer">
+            {post.name}
+          </a>
         );
       },
       fixed: "left",
