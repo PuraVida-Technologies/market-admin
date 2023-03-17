@@ -2,10 +2,12 @@ import "antd/dist/antd.css";
 import React, { useEffect, useState } from "react";
 import { NextRouter, useRouter } from "next/router";
 import { getPostDetails, Post, postAdminService, PostsResponse } from "@/services/post";
-import { Col, Pagination, Row } from "antd";
+import { Col, Empty, Pagination, Row } from "antd";
 import CustomCard from "@/components/CustomCard";
 import ProductModal from "../modals/ProductModal";
 import { customStyles } from "@/util/modalStyle";
+import { LoadingSpinner } from "../Loading";
+import styles from "./styles.module.scss";
 
 interface IPostProps {
   pageSize: number;
@@ -70,34 +72,43 @@ export default function PostView(props: IPostProps): JSX.Element {
   }
 
   return (
-    <>
-      <Row gutter={[16, 16]}>
-        {posts?.data?.map((post) => {
-          return (
-            <Col className="gutter-row" span={6} xs={24} sm={12} md={12} lg={8} xl={6} key={post._id}>
-              <CustomCard viewDetail={openModal} post={post} />
-            </Col>
-          );
-        })}
-      </Row>
-
-      <div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem", marginTop: "1rem" }}>
-        <Pagination
-          className="pagination"
-          defaultCurrent={page}
-          defaultPageSize={pageSize}
-          total={posts?.pagination?.total || total}
-          responsive
-          onChange={onChangePagination}
-          pageSizeOptions={[12, 24, 48, 96]}
-        />
-      </div>
-      <ProductModal
-        postDetails={postDetails}
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        customStyles={customStyles}
-      />
-    </>
+    <div className={styles.container}>
+      {posts?.data ? (
+        <>
+          <Row gutter={[16, 16]} align="middle">
+            {posts?.data?.map((post) => {
+              return (
+                <Col className="gutter-row" span={6} xs={24} sm={12} md={12} lg={8} xl={6} key={post._id}>
+                  <CustomCard viewDetail={openModal} post={post} />
+                </Col>
+              );
+            })}
+          </Row>
+          {posts?.data?.length ? (
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem", marginTop: "1rem" }}>
+              <Pagination
+                className="pagination"
+                defaultCurrent={page}
+                defaultPageSize={pageSize}
+                total={posts?.pagination?.total || total}
+                responsive
+                onChange={onChangePagination}
+                pageSizeOptions={[12, 24, 48, 96]}
+              />
+            </div>
+          ) : (
+            <Empty />
+          )}
+          <ProductModal
+            postDetails={postDetails}
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
+            customStyles={customStyles}
+          />
+        </>
+      ) : (
+        <LoadingSpinner />
+      )}
+    </div>
   );
 }
