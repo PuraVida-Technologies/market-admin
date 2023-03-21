@@ -99,16 +99,16 @@ export default function PostView(props: IPostProps): JSX.Element {
           ) : (
             <Empty />
           )}
-          <ProductModal
-            postDetails={postDetails}
-            modalIsOpen={modalIsOpen}
-            closeModal={closeModal}
-            customStyles={customStyles}
-          />
         </>
       ) : (
         <LoadingSpinner />
       )}
+      <ProductModal
+        postDetails={postDetails}
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        customStyles={customStyles}
+      />
     </div>
   );
 }
