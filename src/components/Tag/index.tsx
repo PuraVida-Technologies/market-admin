@@ -22,10 +22,11 @@ interface ITagProps {
   page: number;
   total: number;
   order: string;
+  status: string;
 }
 
 export default function TagView(props: ITagProps): JSX.Element {
-  const { page, pageSize, total, order } = props;
+  const { page, pageSize, total, order, status } = props;
 
   const [selectedTag, setSelectedTag] = useState(null);
   const [isUpdateTagModalOpen, setIsUpdateTagModalOpen] = useState(false);
@@ -80,11 +81,11 @@ export default function TagView(props: ITagProps): JSX.Element {
 
   useEffect(() => {
     if (!isModalOpen) {
-      tagsAdminService({ limit: pageSize, page, order }).then((response) => {
+      tagsAdminService({ limit: pageSize, page, order, status }).then((response) => {
         setTags(response);
       });
     }
-  }, [pageSize, page, router, isModalOpen, isUpdateTagModalOpen, order]);
+  }, [pageSize, page, router, isModalOpen, isUpdateTagModalOpen, order, status]);
 
   const handleOnChange = (page: TablePaginationConfig) => {
     const { pageSize, current } = page;

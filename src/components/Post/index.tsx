@@ -14,10 +14,11 @@ interface IPostProps {
   page: number;
   total: number;
   order: string;
+  status: string;
 }
 
 export default function PostView(props: IPostProps): JSX.Element {
-  const { page, pageSize, total, order } = props;
+  const { page, pageSize, total, order, status } = props;
   const router: NextRouter = useRouter();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [postDetails, setPostDetails] = useState<Post>({});
@@ -53,11 +54,11 @@ export default function PostView(props: IPostProps): JSX.Element {
 
   useEffect(() => {
     if (router.query.isModalOpen !== "true") {
-      postAdminService({ limit: pageSize, page, order }).then((data) => {
+      postAdminService({ limit: pageSize, page, order, status }).then((data) => {
         setPosts(data);
       });
     }
-  }, [pageSize, page, router, order]);
+  }, [pageSize, page, router, order, status]);
 
   function onChangePagination(page: number, pageSize: number) {
     if (page) {

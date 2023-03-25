@@ -35,7 +35,7 @@ const CustomCard: FC<CustomCardProps> = ({ post, viewDetail }) => {
     >
       <div className="">
         <div className="line-height-1">
-          <span className="custom-top-1">{post.name}</span>
+          <span className="custom-top-1">{post.name?.slice(0, 20)}</span>
           <span className="description-1 custom-top-1 custom-eighty-percent">{post.address}</span>
         </div>
         <Button

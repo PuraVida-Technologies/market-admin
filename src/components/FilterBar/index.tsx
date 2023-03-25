@@ -22,6 +22,7 @@ export default function FilterBar({ handleView, handleSort }: FilterBarProps): J
       setTitle(title);
     }
   }, [router.query]);
+
   const viewsMenu = (
     <Menu
       items={[
@@ -72,7 +73,7 @@ export default function FilterBar({ handleView, handleSort }: FilterBarProps): J
   );
 
   return (
-    <div className={styles.filterBAr}>
+    <div className={styles.filterPositionStart}>
       <div>{/* <CustomDatePicker /> */}</div>
       <div className={styles.bubblesContainer}>
         <Dropdown overlay={viewsMenu} placement="bottomLeft" arrow trigger={["click"]}>
