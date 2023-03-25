@@ -24,4 +24,10 @@ export const DASHBOARD = {
     ascending: "asc",
     descending: "desc",
   },
+  status: {
+    approved: "approved",
+    rejected: "rejected",
+    pending: "pending",
+    null: null,
+  },
 };

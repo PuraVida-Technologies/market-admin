@@ -7,6 +7,17 @@
   gap: 1rem;
 }
 
+.filterPositionStart {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 1rem;
+  width: 100%;
+  align-self: flex-end;
+}
+
 .bubblesContainer {
   display: flex;
   align-items: center;

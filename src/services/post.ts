@@ -50,12 +50,13 @@ type GetPostsAdminOptions = {
   limit: number;
   page: number;
   order: string;
+  status: string;
 };
 
 export async function postAdminService(
   options: GetPostsAdminOptions
 ): Promise<PostsResponse> {
-  const { limit, page, order } = options;
+  const { limit, page, order, status } = options;
   const href = baseUrl + "/graphql";
 
   const userData = localStorage.getItem("auth");
@@ -64,8 +65,8 @@ export async function postAdminService(
   const response = await axios.post(
     href,
     {
-      query: `query($limit: Float, $page: Float, $order: String){
-        getAdminPosts(getAdminPostsInput: { limit: $limit, page: $page, order: $order, sortBy: "createdAt"}) {   
+      query: `query($limit: Float, $page: Float, $order: String,$status : String){
+        getAdminPosts(getAdminPostsInput: { limit: $limit, page: $page, order: $order, sortBy: "createdAt",status:$status}) {   
             data {
                 name,
                 status,
@@ -89,6 +90,7 @@ export async function postAdminService(
         limit,
         page,
         order,
+        status,
       },
     },
     {

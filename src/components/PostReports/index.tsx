@@ -50,7 +50,7 @@ export default function PostReportsView(props: IPostReportsProps): JSX.Element {
     if (selectedPost) setIsConfirmDeletePostModalOpened(true);
   }, [selectedPost]);
   useEffect(() => {
-    getPostReportsAdminService({ limit: pageSize, page, order }).then((response) => {
+    getPostReportsAdminService({ limit: pageSize, page, order, status }).then((response) => {
       setReports(response);
     });
   }, [pageSize, page, router, order, selectedReport, isConfirmDeletePostModalOpened]);

@@ -84,7 +84,7 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
               </div>
             </div>
             <div className="">
-              <p className="market-bold-1 modal-title-1 ">{postDetails.name}</p>
+              <p className="market-bold-1 modal-title-1 ">{postDetails.name?.slice(0,100)}</p>
               <div className="custom-flex-1">
                 <span>
                   <Image

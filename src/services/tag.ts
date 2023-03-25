@@ -40,6 +40,7 @@ type GetTagssAdminOptions = {
   limit: number;
   page: number;
   order: string;
+  status: string;
 };
 
 type AdminTagName = {
@@ -63,7 +64,7 @@ type ApproveOrRejectAdminTagArgs = {
 export async function tagsAdminService(
   options: GetTagssAdminOptions
 ): Promise<TagsResponse> {
-  const { limit, page, order } = options;
+  const { limit, page, order, status } = options;
   const href = baseUrl + "/graphql";
 
   const userData = localStorage.getItem("auth");
@@ -72,8 +73,8 @@ export async function tagsAdminService(
   const response = await axios.post(
     href,
     {
-      query: `query($limit: Float, $page: Float, $order: String){
-        getAdminTags(getAdminTagsInput: { limit: $limit, page: $page, order: $order, sortBy: "createdAt" }){   
+      query: `query($limit: Float, $page: Float, $order: String,$status : String){
+        getAdminTags(getAdminTagsInput: { limit: $limit, page: $page, order: $order, sortBy: "createdAt",status:$status }){   
           data {
             _id
             names {
@@ -100,6 +101,7 @@ export async function tagsAdminService(
         limit,
         page,
         order,
+        status,
       },
     },
     {
