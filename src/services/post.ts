@@ -136,7 +136,7 @@ export async function getPostDetails(id: string): Promise<Post> {
     }
   );
 
-  return response.data.data.getAdminPost as Post;
+  return response.data?.data?.getAdminPost as Post;
 }
 
 export async function updatePostStatus(
