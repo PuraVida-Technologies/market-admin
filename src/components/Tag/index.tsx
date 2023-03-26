@@ -8,12 +8,6 @@ import { Button, Modal, Input } from "antd";
 import React, { ReactNode, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import TagActionsColumn from "../TagActionsColumn";
-// import { uploadFile } from "@/services/upload";
-
-// import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-// import { message } from "antd";
-// import type { UploadChangeParam } from "antd/es/upload";
-// import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import UpdateTagModal from "./UpdateTagModal";
 import { LoadingSpinner } from "../Loading";
 
@@ -180,7 +174,7 @@ export default function TagView(props: ITagProps): JSX.Element {
           <Row gutter={[16, 16]}>
             <Col xs={24}>
               <Table
-                loading={!tags?.data?.length}
+                loading={loading}
                 dataSource={tags?.data}
                 columns={columns}
                 onChange={handleOnChange}
