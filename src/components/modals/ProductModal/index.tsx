@@ -31,8 +31,10 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
     const response = await updatePostStatus(postDetails._id as string, state, reason);
     if (isArray(response)) {
       notify(response[0].message, "error");
+      closeModal();
     } else {
       notify("Status updated successfully", "success");
+      closeModal();
     }
   };
   useEffect(() => {
@@ -84,7 +86,7 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
               </div>
             </div>
             <div className="">
-              <p className="market-bold-1 modal-title-1 ">{postDetails.name?.slice(0,100)}</p>
+              <p className="market-bold-1 modal-title-1 ">{postDetails.name?.slice(0, 100)}</p>
               <div className="custom-flex-1">
                 <span>
                   <Image
