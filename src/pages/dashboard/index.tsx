@@ -82,7 +82,7 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
 
   return (
     <MainLayout>
-      <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "end" }}>
         {(view === "post-view" || view === "tag-view") && <StatusBar handleStatus={handleStatus} />}
         <FilterBar handleView={handleView} handleSort={handleSort} />
       </div>
