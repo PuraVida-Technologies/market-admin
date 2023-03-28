@@ -8,6 +8,8 @@ import { useMediaQuery } from "react-responsive";
 import styles from "./styles.module.scss";
 import { notify } from "@/util/alertMessage";
 import { isArray } from "lodash";
+import ConfirmDeletePostModal from "../../../components/PostReports/ConfirmDeletePostModal/index";
+import { DeleteOutlined } from "@ant-design/icons";
 
 interface ProductModalProps {
   postDetails: Post;
@@ -21,7 +23,8 @@ const { TextArea } = Input;
 const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeModal, customStyles }) => {
   const [mainImgIndex, setMainImgIndex] = useState<number>(-1);
   const [mainImgUrl, setMainImgUrl] = useState(postDetails.mainImageUrl);
-
+  const [isConfirmDeletePostModalOpened, setIsConfirmDeletePostModalOpened] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const [reason, setReason] = useState<string>("");
   const handleReasonChange: ChangeEventHandler<HTMLTextAreaElement> = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,6 +63,11 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
     }
   }, [postDetails]);
 
+  const handleDeleteModal = () => {
+    setSelectedPost(postDetails);
+    setIsConfirmDeletePostModalOpened(true);
+  };
+
   return (
     <div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
@@ -70,17 +78,34 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
         </div>
         <Space>
           <div className="grid-2">
-            <div>
-              <Image src={mainImgUrl as string} width="400px" height="300px" alt="food image" />
+            <div className={styles.images_container}>
+              <div style={{ border: "1px solid #d6cfcf" }}>
+                <Image
+                  src={mainImgUrl as string}
+                  objectFit="contain"
+                  layout="responsive"
+                  width="400px"
+                  height="300px"
+                  alt="food image"
+                />
+              </div>
               <div className={styles.bottomSlider} style={{ width: isTabletOrMobile ? "100%" : "400px" }}>
                 {postDetails.imagesUrls?.map((url, index) => (
                   <div
                     key={url}
-                    style={{ border: mainImgIndex === index ? "3px solid #3653FE" : "" }}
-                    className="custom-img custom-rounded-1 custom-cursor"
+                    style={{ border: mainImgIndex === index ? "3px solid #3653FE" : "", overflow: "hidden" }}
+                    className="image_preview custom-rounded-1 custom-cursor"
                     onClick={() => setMainImgIndex(index)}
                   >
-                    <Image alt="" className=" object-cover rounded-t-xl" src={url} layout="fill" />
+                    <Image
+                      alt=""
+                      className="object-cover rounded-t-xl"
+                      width="50"
+                      height="50"
+                      src={url}
+                      objectFit="contain"
+                      layout="responsive"
+                    />
                   </div>
                 ))}
               </div>
@@ -113,37 +138,54 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
                   disabled={postDetails.status !== "PENDING"}
                 />
               </div>
-              {postDetails.status === "PENDING" ? (
-                <div>
-                  <Button
-                    onClick={() => handleUpdatePostStatus("approved")}
-                    type="primary"
-                    shape="round"
-                    size={"middle"}
-                    style={{
-                      background: "#3653FE",
-                      color: "#ffffff",
-                      border: "none",
-                      outline: "none",
-                      marginTop: "1rem",
-                    }}
-                  >
-                    Accept
-                  </Button>
-                  <Button
-                    onClick={() => handleUpdatePostStatus("rejected")}
-                    shape="round"
-                    danger
-                    style={{ marginLeft: ".5rem" }}
-                  >
-                    Decline
-                  </Button>
+              <div className={styles.actionComp}>
+                {postDetails.status === "PENDING" ? (
+                  <div className={styles.btns_comp}>
+                    <Button
+                      onClick={() => handleUpdatePostStatus("approved")}
+                      type="primary"
+                      shape="round"
+                      size={"middle"}
+                      style={{
+                        background: "#3653FE",
+                        color: "#ffffff",
+                        border: "none",
+                        outline: "none",
+                        // marginTop: "1rem",
+                      }}
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      onClick={() => handleUpdatePostStatus("rejected")}
+                      shape="round"
+                      danger
+                      style={{ marginLeft: ".5rem" }}
+                    >
+                      Decline
+                    </Button>
+                  </div>
+                ) : null}
+                <div className={styles.delete_icon}>
+                  <DeleteOutlined
+                    onClick={handleDeleteModal}
+                    style={{ fontSize: "20px", color: "red", fill: "red" }}
+                    width="200"
+                    title="Remove Post"
+                  />
                 </div>
-              ) : null}
+              </div>
             </div>
           </div>
         </Space>
       </Modal>
+      <ConfirmDeletePostModal
+        isModalOpen={isConfirmDeletePostModalOpened}
+        setIsModalOpen={setIsConfirmDeletePostModalOpened}
+        setSelectedPost={setSelectedPost}
+        selectedPost={selectedPost as unknown as Post}
+        closeModal={closeModal}
+      />
     </div>
   );
 };

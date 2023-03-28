@@ -24,7 +24,7 @@ const MainLayout = (props: MainLayoutProps): JSX.Element => {
       <Head>
         <title>PuraVida</title>
         <meta name="description" content="PuraVida" />
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/icons/Logo2.png" />
       </Head>
       <Layout className={styles.siteLayout}>
         <TopMenu onclick={() => setIsSideBarOpen(true)} />

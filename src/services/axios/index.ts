@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import axios from "axios";
 
 import getConfig from "next/config";
@@ -42,6 +41,7 @@ axiosClient.interceptors.response.use(
   function (error) {
     const res = error.response;
     if (res?.status == 401) {
+      localStorage.removeItem("auth");
       window.location.href = "/login";
     }
     return Promise.reject(error);

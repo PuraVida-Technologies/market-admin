@@ -9,6 +9,7 @@ interface ConfirmDeletePostModalProps {
   setIsModalOpen: (flag: boolean) => void;
   selectedPost: Post;
   setSelectedPost: (post: null) => void;
+  closeModal?: () => void;
 }
 
 export default function ConfirmDeletePostModal({
@@ -16,6 +17,7 @@ export default function ConfirmDeletePostModal({
   setIsModalOpen,
   selectedPost,
   setSelectedPost,
+  closeModal,
 }: ConfirmDeletePostModalProps): JSX.Element {
   const [loading, setIsLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -26,6 +28,9 @@ export default function ConfirmDeletePostModal({
       .then(() => {
         notify("Post Removed", "success");
         resetThenClose();
+        if (closeModal) {
+          closeModal();
+        }
       })
       .catch(() => {
         notify("Can't Remove Post", "error");
