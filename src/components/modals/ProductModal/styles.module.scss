@@ -27,6 +27,8 @@
   overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;
+  justify-content: center;
+  margin: 20px 0px;
   > div {
     min-width: 90px;
     margin-inline-end: 1rem;
@@ -37,4 +39,37 @@
 }
 .bottomSlider::-webkit-scrollbar {
   display: none;
+}
+
+.images_container {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+.image_preview {
+  width: 30%;
+  overflow: hidden !important;
+}
+
+.actionComp {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 1rem 0px;
+}
+.btns_comp {
+  display: flex;
+  align-items: center;
+}
+
+.delete_icon {
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+  justify-self: flex-end;
+  width: 100%;
+  padding: 5px 0px;
 }

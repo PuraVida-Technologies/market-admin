@@ -18,7 +18,7 @@ const TopMenu: FC<TopMenuProps> = ({ onclick }) => {
       <div className={styles.logoConatainer}>
         <Link href="/dashboard">
           <div className={styles.logoImg}>
-            <Image src="/icons/logo.png" alt="PuraVida" width={"100%"} height={"100%"} />
+            <Image src="/icons/logo2.png" alt="PuraVida" width={"100%"} height={"100%"} />
           </div>
         </Link>
         <p className={styles.logoText}>PuraVida market dashboard</p>
