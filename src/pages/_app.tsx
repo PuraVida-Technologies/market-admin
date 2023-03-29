@@ -1,13 +1,14 @@
-import "./globals.css";
 import "antd/dist/antd.css";
-import App, { AppInitialProps } from "next/app";
-import type { ApplicationProperties } from "@/types/ApplicationProperties";
-import NextNProgress from "nextjs-progressbar";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import type { AppContext } from "next/app";
 import { ApolloProvider } from "@apollo/client";
+import { ToastContainer } from "react-toastify";
+import App, { AppInitialProps } from "next/app";
+import NextNProgress from "nextjs-progressbar";
+import type { AppContext } from "next/app";
+
+import "./globals.css";
 import { client } from "@/apollo";
+import type { ApplicationProperties } from "@/types/ApplicationProperties";
 
 function Application({ Component, pageProps }: ApplicationProperties): JSX.Element {
   return (

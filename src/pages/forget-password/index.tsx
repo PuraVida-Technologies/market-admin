@@ -4,16 +4,14 @@ import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from 'next/link'
-import type { NextPage } from "next";
 
 import { LoadingOutlined } from "@ant-design/icons";
-import { loginAdminService } from "@/services/auth";
+import { forgetPassword } from "@/services/auth";
 import { notify } from "@/util/alertMessage";
 import loggedIn from "@/HOC/loggedIn";
 
-const LoginPage: NextPage = () => {
+function ForgetPasswordPage(): JSX.Element {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -21,14 +19,14 @@ const LoginPage: NextPage = () => {
 
   const handleLogin = async () => {
     setIsLoading(true);
-    const response = await loginAdminService(email, password);
-    if (response?.data) {
-      notify("Login Successful", "success");
-      localStorage.setItem("auth", JSON.stringify(response?.data));
-      push("/dashboard");
+    const response = await forgetPassword(email);
+    
+    if (response?.message) {
+      notify(response.message, "success");
+      push("/login");
       setIsLoading(false);
     } else {
-      notify(response?.errors ? "Incorrect email or password" : "An error occured", "error");
+      notify("An error occured", "error");
       setIsLoading(false);
     }
   };
@@ -36,7 +34,7 @@ const LoginPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Login | Pura Vida</title>
+        <title>Forget Password | Pura Vida</title>
         <meta name="description" content="PuraVida" />
         <link rel="icon" href="/icons/Logo2.png" />
       </Head>
@@ -57,22 +55,11 @@ const LoginPage: NextPage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="custom-form">
-                <label htmlFor="password">Password</label>
-                <input
-                  className="custom-input"
-                  id="password"
-                  name="password"
-                  value={password}
-                  type={"password"}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <Link href='/forget-password' className="login-form-forgot" passHref>
-                Forgot password?
+              <Link href='/login' className="login-form-forgot" passHref>
+                Back to login
               </Link>
               <button onClick={handleLogin} className="custom-blue-btn">
-                Sign in
+                Submit
                 {isLoading && <Spin style={{ color: "#fff", marginLeft: "1rem" }} indicator={antIcon} />}
               </button>
              
@@ -87,6 +74,6 @@ const LoginPage: NextPage = () => {
       </div>
     </>
   );
-};
+}
 
-export default loggedIn(LoginPage);
+export default loggedIn(ForgetPasswordPage);

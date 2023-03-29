@@ -38,14 +38,17 @@ axiosClient.interceptors.response.use(
   function (response) {
     return response;
   },
-  function (error) {
+
+  function (error) {    
     const res = error.response;
     if (res?.status == 401) {
       localStorage.removeItem("auth");
       window.location.href = "/login";
     }
+
     return Promise.reject(error);
   }
 );
+
 
 export default axiosClient;

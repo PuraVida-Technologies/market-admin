@@ -1,17 +1,15 @@
-import styles from "./styles.module.scss";
 import { NextPage } from "next";
-import Image from "next/image";
-import ChangePasswordModal from "@/components/modals/ChangePassword";
 import { useEffect, useState } from "react";
-import { customStyles2, mobCustomStyles2 } from "@/util/modalStyle";
 import { useMediaQuery } from "react-responsive";
-import { AuthResponse } from "@/services/auth";
-import withAuth from "@/HOC/withAuth";
-
 import dynamic from "next/dynamic";
-const MainLayout = dynamic(() => import("@/components/layouts/Main"), {
-  ssr: false,
-});
+import Image from "next/image";
+
+const MainLayout = dynamic(() => import("@/components/layouts/Main"), { ssr: false});
+import { AuthResponse } from "@/services/auth";
+import { customStyles2, mobCustomStyles2 } from "@/util/modalStyle";
+import ChangePasswordModal from "@/components/modals/ChangePassword";
+import styles from "./styles.module.scss";
+import withAuth from "@/HOC/withAuth";
 
 const ProfilePage: NextPage = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
