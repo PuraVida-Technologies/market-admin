@@ -81,7 +81,7 @@ const LoginPage: NextPage = () => {
         </div>
         <div className="right-login-container">
           <div className="logo-img">
-            <Image src="/icons/logo2.png" alt="Pura Vida" width={"100%"} height={"100%"} />
+            <Image src="/icons/Logo2.png" alt="Pura Vida" width={"100%"} height={"100%"} />
           </div>
         </div>
       </div>
