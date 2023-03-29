@@ -1,7 +1,14 @@
 import React, { FC, useState } from "react";
 import Modal from "react-modal";
 import Image from "next/image";
+import { Spin } from "antd";
+import { useRouter } from "next/router";
+
 import styles from "./styles.module.scss";
+import { LoadingOutlined } from "@ant-design/icons";
+import { notify } from "@/util/alertMessage";
+import { updatePassword } from "@/services/auth";
+
 
 interface ChangePasswordModalProps {
   modalIsOpen: boolean;
@@ -10,9 +17,30 @@ interface ChangePasswordModalProps {
   customStyles: any;
 }
 const ChangePasswordModal: FC<ChangePasswordModalProps> = ({ modalIsOpen, closeModal, customStyles }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const { push } = useRouter();
+
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
+  async function handleSubmit() {
+    setIsLoading(true);
+    const response = await updatePassword(oldPassword, newPassword, repeatPassword);
+    if (response?.data) {
+      notify("Password Update Successfully", "success");
+      setIsLoading(false);
+      setOldPassword("");
+      setNewPassword("");
+      setRepeatPassword("");
+      localStorage.removeItem("auth");
+      push("/login");
+    } else {
+      notify("An error occurred", "error");
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div>
@@ -23,7 +51,7 @@ const ChangePasswordModal: FC<ChangePasswordModalProps> = ({ modalIsOpen, closeM
               <Image src={"/icons/cancel.svg"} width={30} height={30} alt="cancel" />
             </div>
           </div>
-          <form className={styles.formContainer}>
+          <div className={styles.formContainer}>
             <div className={styles.customForm}>
               <label htmlFor="oldPassword">Old Password</label>
               <input
@@ -57,8 +85,11 @@ const ChangePasswordModal: FC<ChangePasswordModalProps> = ({ modalIsOpen, closeM
                 onChange={(e) => setRepeatPassword(e.target.value)}
               />
             </div>
-            <button className={styles.customBlueBtn}>Change Password</button>
-          </form>
+            <button className={styles.customBlueBtn} onClick={handleSubmit}>
+              Change Password                
+              {isLoading && <Spin style={{ color: "#fff", marginLeft: "1rem" }} indicator={antIcon} />}
+            </button>
+          </div>
         </div>
       </Modal>
     </div>

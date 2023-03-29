@@ -6,7 +6,6 @@ import { DASHBOARD } from "@/common/constants";
 import { NextRouter, useRouter } from "next/router";
 import TagView from "@/components/Tag";
 import PostReportsView from "@/components/PostReports";
-import MapView from "@/components/Map";
 import PostUpdateRequestView from "@/components/PostUpdateRequest";
 
 import dynamic from "next/dynamic";
@@ -58,7 +57,6 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
     [DASHBOARD.views.postReports]: (
       <PostReportsView page={page} total={total} pageSize={pageSize} order={defaultSort} />
     ),
-    [DASHBOARD.views.map]: <MapView />,
     [DASHBOARD.views.updatePostRequest]: (
       <PostUpdateRequestView page={page} total={total} pageSize={pageSize} order={defaultSort} />
     ),
