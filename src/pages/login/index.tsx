@@ -38,7 +38,7 @@ const LoginPage: NextPage = () => {
       <Head>
         <title>Login | Pura Vida</title>
         <meta name="description" content="PuraVida" />
-        <link rel="icon" href="/icons/Logo2.png" />
+        <link rel="icon" href="/logo.svg" />
       </Head>
 
       <div className="login-container">
@@ -81,7 +81,7 @@ const LoginPage: NextPage = () => {
         </div>
         <div className="right-login-container">
           <div className="logo-img">
-            <Image src="/icons/Logo2.png" alt="Pura Vida" width={"100%"} height={"100%"} />
+            <Image src="/logo.svg" alt="Pura Vida" width={"100%"} height={"100%"} />
           </div>
         </div>
       </div>
