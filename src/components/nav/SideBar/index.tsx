@@ -25,7 +25,7 @@ const SideBar: FC<SideBarProps> = ({ open, onClick }) => {
         <div className="" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Link href="/dashboard">
             <div className={styles.logoImg}>
-              <Image src="/icons/logo.png" alt="PuraVida" width={"100%"} height={"100%"} />
+              <Image src="/logo.svg" alt="PuraVida" width={"100%"} height={"100%"} />
             </div>
           </Link>
           <div onClick={onClick}>
