@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import { LogoutOutlined, ProfileOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { greeting } from "@/functions";
+import { greeting } from "@/util/greeting";
 
 interface DropdownProps {
   mode: "horizontal" | "vertical" | "inline";
@@ -28,7 +28,7 @@ const Dropdown: FC<DropdownProps> = ({ mode }) => {
             </div>
             <div className={styles.text}>
               <p>Admin</p>
-              {greeting()}
+              <p>{greeting()}</p>
             </div>
           </div>
         }

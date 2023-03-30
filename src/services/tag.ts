@@ -1,5 +1,5 @@
 import { baseUrl } from "@/util/apiUrls";
-import axios from "axios";
+import axiosClient from './axios'
 
 export type TagNameObj = {
   language: string;
@@ -70,7 +70,7 @@ export async function tagsAdminService(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `query($limit: Float, $page: Float, $order: String,$status : String){
@@ -124,7 +124,7 @@ export async function createAdminTag(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($names: [AdminTagName!]!, $icon: String!){
@@ -164,7 +164,7 @@ export async function approveOrRejectAdminTag(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($id: String!, $status: String!, $reason: String, $names: [TagName!], $icon: String){
@@ -205,7 +205,7 @@ export async function getTagDetails(id: string): Promise<Tag> {
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `query ($id: String!){
@@ -241,7 +241,7 @@ export async function updateTagStatus(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($status: String!, $tagId: String!, $reason: String){

@@ -1,5 +1,5 @@
 import { baseUrl } from "@/util/apiUrls";
-import axios from "axios";
+import axiosClient from "./axios";
 
 type AdminPostTag = {
   _id: string;
@@ -66,7 +66,7 @@ export async function getUpdatePostsRequests(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `query($limit: Float, $page: Float, $order: String){
@@ -141,7 +141,7 @@ export async function getSingleUpdatePostsRequest(id: string): Promise<Post> {
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `query ($id: String!){
@@ -196,7 +196,7 @@ export async function updatePostStatus(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($status: String!, $requestId: String!, $reason: String){
