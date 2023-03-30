@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import { LogoutOutlined, ProfileOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { greeting } from "@/util/greeting";
+import { greeting } from "@/util/welcome";
 
 interface DropdownProps {
   mode: "horizontal" | "vertical" | "inline";

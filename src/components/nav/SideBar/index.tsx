@@ -5,7 +5,7 @@ import styles from "../TopMenu/styles.module.scss";
 import React, { FC } from "react";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
-import { greeting } from "@/util/greeting";
+import { greeting } from "@/util/welcome";
 
 interface SideBarProps {
   open: boolean;
