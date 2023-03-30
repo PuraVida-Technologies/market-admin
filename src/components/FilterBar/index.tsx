@@ -36,11 +36,6 @@ export default function FilterBar({ handleView, handleSort }: FilterBarProps): J
           label: <span>Tags</span>,
           onClick: () => handleView(DASHBOARD.views.tag),
         },
-        // {
-        //   key: "3",
-        //   label: <span>Map</span>,
-        //   onClick: () => handleView(DASHBOARD.views.map),
-        // },
         {
           key: "4",
           label: <span>Request Post Update</span>,
