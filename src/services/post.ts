@@ -1,5 +1,5 @@
 import { baseUrl } from "@/util/apiUrls";
-import axios from "axios";
+import axiosClient from "./axios";
 
 export type Post = {
   name?: string;
@@ -62,7 +62,7 @@ export async function postAdminService(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `query($limit: Float, $page: Float, $order: String,$status : String){
@@ -110,7 +110,7 @@ export async function getPostDetails(id: string): Promise<Post> {
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `query ($id: String!){
@@ -151,7 +151,7 @@ export async function updatePostStatus(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($status: String!, $postId: String!, $reason: String){
@@ -192,7 +192,7 @@ export async function getPostReportsAdminService(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `query($limit: Float, $page: Float, $order: String){
@@ -241,7 +241,7 @@ export async function ignorePostReportAdminService(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($reportId: String!){
@@ -270,7 +270,7 @@ export async function removePostAdminService(postId: string): Promise<Post> {
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($postId: String!){

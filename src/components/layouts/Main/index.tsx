@@ -2,9 +2,10 @@ import "antd/dist/antd.css";
 import { Layout } from "antd";
 import Head from "next/head";
 import React, { ReactNode, useState } from "react";
-import styles from "./styles.module.css";
-import TopMenu from "@/components/nav/TopMenu";
+
 import SideBar from "@/components/nav/SideBar";
+import styles from "./styles.module.scss";
+import TopMenu from "@/components/nav/TopMenu";
 import withAuth from "@/HOC/withAuth.js";
 
 const { Content } = Layout;
@@ -22,7 +23,7 @@ const MainLayout = (props: MainLayoutProps): JSX.Element => {
   return (
     <Layout hasSider>
       <Head>
-        <title>PuraVida</title>
+        <title>Pura Vida</title>
         <meta name="description" content="PuraVida" />
         <link rel="icon" href="/logo.svg" />
       </Head>

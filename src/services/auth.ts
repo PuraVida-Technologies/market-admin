@@ -1,5 +1,6 @@
 import { baseUrl } from "@/util/apiUrls";
-import axios from "axios";
+import axiosClient from "./axios";
+
 
 export type AuthResponse = {
   data?: {
@@ -19,7 +20,7 @@ export async function loginAdminService(
 ): Promise<AuthResponse> {
   const href = baseUrl + "/graphql";
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($email: String!, $password: String!){
@@ -54,7 +55,7 @@ export type IForgetPasswordResponse = {
 export async function forgetPassword(email: string): Promise<IForgetPasswordResponse> {
   const href = baseUrl + "/graphql";
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($email: String!) {
@@ -83,7 +84,7 @@ export async function updatePassword(
   const userData = localStorage.getItem("auth");
   const user = userData && JSON.parse(userData);
 
-  const response = await axios.post(
+  const response = await axiosClient.post(
     href,
     {
       query: `mutation($oldPassword: String!, $newPassword: String!, $confirmNewPassword: String!){

@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
@@ -21,7 +20,7 @@ axiosClient.interceptors.request.use(
 
     let AuthStr;
 
-    if (user.auth) {
+    if (user && user?.auth) {
       AuthStr = "Bearer " + user.auth.token;
       if (config.headers) config.headers["Authorization"] = AuthStr ?? "";
     }
@@ -35,17 +34,19 @@ axiosClient.interceptors.request.use(
 );
 
 axiosClient.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-
-  function (error) {    
-    const res = error.response;
-    if (res?.status == 401) {
+  function (config) {
+    const errors = config.data.errors
+    if(errors && errors.length && errors[0].extensions?.response?.statusCode === 401) {
       localStorage.removeItem("auth");
       window.location.href = "/login";
     }
-
+    return config;
+  }, function (error) {
+    const response = error.response;
+    if (response?.status == 401) {
+      localStorage.removeItem("auth");
+      window.location.href = "/login";
+    }
     return Promise.reject(error);
   }
 );
