@@ -26,6 +26,7 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
       setView(view);
       const updatedRouter = { ...router };
       updatedRouter.query.view = view;
+      updatedRouter.query.page = '1';
       router.push(updatedRouter, undefined, { shallow: false });
     }
   }
@@ -67,11 +68,13 @@ const Dashboard: NextPage = (props: InferGetServerSidePropsType<typeof getServer
       setView(view);
     }
   }, [view]);
+
   useEffect(() => {
     if (Object.values(DASHBOARD.sortings).includes(sort)) {
       setSort(sort);
     }
   }, [sort]);
+  
   useEffect(() => {
     if (Object.values(DASHBOARD.status).includes(status)) {
       setStatus(status);
