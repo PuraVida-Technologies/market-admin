@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Post, updatePostStatus } from "@/services/post";
-import { Button, Input, Space } from "antd";
+import { Button, Input, Space, Tag, Tooltip } from "antd";
 import Image from "next/image";
 import { FC, useState, ChangeEvent, ChangeEventHandler, useEffect } from "react";
 import Modal from "react-modal";
@@ -9,7 +9,7 @@ import styles from "./styles.module.scss";
 import { notify } from "@/util/alertMessage";
 import { isArray } from "lodash";
 import ConfirmDeletePostModal from "../../../components/PostReports/ConfirmDeletePostModal/index";
-import { DeleteOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 
 interface ProductModalProps {
   postDetails: Post;
@@ -110,8 +110,8 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
                 ))}
               </div>
             </div>
-            <div className="">
-              <p className="market-bold-1 modal-title-1 ">{postDetails.name?.slice(0, 100)}</p>
+            <div>
+              <p className="market-bold-1 modal-title-1 ">{postDetails.name}</p>
               <div className="custom-flex-1">
                 <span>
                   <Image
@@ -129,8 +129,52 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
                 <p className="description-1 modal-description-1">{postDetails.description}</p>
               </div>
 
+              <div className={styles.tags_container}>
+                {postDetails.tags?.map((tag) => {
+                  return (
+                    <Tag key={tag._id} color="blue">
+                      {tag.name}
+                    </Tag>
+                  );
+                })}
+              </div>
+              <div className={styles.latlng_container}>
+                <p>
+                  <span className="custom-top-2 market-bold-1">Longitude: </span>
+                  <span>{postDetails?.location?.coordinates[0]}</span>
+                </p>
+                <p>
+                  <span className="custom-top-2 market-bold-1">Latitude: </span>
+                  <span>{postDetails?.location?.coordinates[1]}</span>
+                </p>
+              </div>
+
+              <div className={styles.owner_container}>
+                <p>
+                  <span className="custom-top-2 market-bold-1">Email: </span>
+                  <span>{postDetails?.owner?.email}</span>
+                </p>
+                <p>
+                  <span className="custom-top-2 market-bold-1">Phone: </span>
+                  <span>{postDetails?.owner?.phoneNumber}</span>
+
+                  <span className={styles.check_icon}>
+                    {postDetails?.owner?.isPhoneVerified === true ? (
+                      <Tooltip title="Verified">
+                        <CheckCircleOutlined style={{ color: "green" }} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="Not Verified">
+                        <CloseCircleOutlined style={{ color: "red" }} />
+                      </Tooltip>
+                    )}
+                  </span>
+                </p>
+              </div>
+
               <div className={styles.inputContainer}>
-                Reason (optional) :
+                <span className="custom-top-2 market-bold-1">Reason </span>
+                <span>(optional) :</span>
                 <TextArea
                   onChange={handleReasonChange}
                   rows={4}
@@ -151,7 +195,6 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
                         color: "#ffffff",
                         border: "none",
                         outline: "none",
-                        // marginTop: "1rem",
                       }}
                     >
                       Accept
