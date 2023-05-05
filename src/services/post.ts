@@ -12,6 +12,18 @@ export type Post = {
   mainImageUrl?: string;
   slug?: string;
   reason?: string;
+  tags?: {
+    _id: string;
+    name: string;
+  }[];
+  location?: {
+    coordinates: number[];
+  },
+  owner?: {
+    phoneNumber?: string;
+    email?: string;
+    isPhoneVerified?: boolean;
+  }
 };
 
 export type PostsResponse = {
@@ -123,7 +135,19 @@ export async function getPostDetails(id: string): Promise<Post> {
                 createdAt,
                 imagesUrls,
                 mainImageUrl,
-                reason
+                reason,
+                location {
+                  coordinates
+                }
+                tags {
+                  _id
+                  name
+                }
+                owner {
+                  phoneNumber,
+                  email
+                  isPhoneVerified
+              }
       }
     }`,
       variables: {
@@ -137,6 +161,7 @@ export async function getPostDetails(id: string): Promise<Post> {
       },
     }
   );
+console.log("response.data?.data?.getAdminPost", response.data?.data?.getAdminPost);
 
   return response.data?.data?.getAdminPost as Post;
 }
