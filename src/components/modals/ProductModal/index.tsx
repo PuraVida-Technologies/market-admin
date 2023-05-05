@@ -10,6 +10,7 @@ import { notify } from "@/util/alertMessage";
 import { isArray } from "lodash";
 import ConfirmDeletePostModal from "../../../components/PostReports/ConfirmDeletePostModal/index";
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined } from "@ant-design/icons";
+import { format } from "date-fns";
 
 interface ProductModalProps {
   postDetails: Post;
@@ -122,7 +123,15 @@ const ProductModal: FC<ProductModalProps> = ({ postDetails, modalIsOpen, closeMo
                     style={{ marginLeft: "-.2rem" }}
                   />
                 </span>
-                <span style={{ marginLeft: ".2rem" }}>{postDetails.address}</span>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span style={{ alignSelf: "flex-start" }}>{postDetails.address}</span>
+                  {
+                    postDetails.createdAt ?
+                      <span style={{ alignSelf: "flex-end", marginLeft: "2rem" }}>Date: {format(new Date(postDetails.createdAt), "HH:mm MM-dd-yy")}</span>
+                      : null
+                  }
+                </div>
+
               </div>
               <p className="custom-top-2 market-bold-1 modal-description-1">Description</p>
               <div className={styles.descriptionContainer}>
